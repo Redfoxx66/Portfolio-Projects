@@ -18,6 +18,10 @@ body {
     background-color: #f2f6fa;
 }
 
+footer div {
+    background-color: #aebd38;
+}
+
 nav.mainlinks {
     background: var(--thunder-cloud);
     padding: 0.5em 0;

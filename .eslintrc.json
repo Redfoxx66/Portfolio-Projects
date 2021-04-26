@@ -1,16 +1,16 @@
 {
-    "extends": "eslint:recommended",
-    "parserOptions": {
-        "ecmaVersion": 8,
-        "sourceType": "module"
-    },
-    "env": {
-        "browser": true,
-        "node": true,
-        "es2021": true
-    },
-    "rules": {
-        "indent": ["error", 2],
-        "eqeqeq": ["error", "always"]
-    }
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2021": true
+  },
+  "rules": {
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "eqeqeq": ["error", "always"]
+  }
 }

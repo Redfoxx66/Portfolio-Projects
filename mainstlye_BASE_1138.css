@@ -1,24 +1,17 @@
-/* Color declerations need var(--colorname) to use */
-:root {
-  --thunder-cloud: #505160;
-  --waterfall: #68829e;
-  --moss: #aebd38;
-  --meadow: #598234;
-}
-
+/* colors to use
+#505160 thunder cloud
+#68829E waterfall
+#AEBD38 moss
+#598234 meadow
+*/
 body {
   margin: 0;
-}
-
-footer div {
-  background-color: #aebd38;
+  background-color: ;
 }
 
 nav.mainlinks {
-  background: var(--thunder-cloud);
+  background: #505160;
   padding: 0.5em;
-  font-family: sans-serif;
-  line-height: 1.5;
   position: sticky;
   top: 0;
 }
@@ -45,11 +38,11 @@ nav.mainlinks li a {
 
 nav.mainlinks li a:hover,
 nav.mainlinks li a:focus {
-  color: var(--meadow);
+  color: #598234;
 }
 
 nav.mainlinks li a:active {
-  color: var(--waterfall);
+  color: #68829e;
 }
 
 @media (min-width: 675px) {

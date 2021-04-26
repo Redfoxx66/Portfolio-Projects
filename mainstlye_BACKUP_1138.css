@@ -1,0 +1,83 @@
+<<<<<<< HEAD
+/* colors to use
+#505160 thunder cloud
+#68829E waterfall
+#AEBD38 moss
+#598234 meadow
+*/
+
+body {
+    margin: 0;
+    background-color: ;
+}
+
+nav.mainlinks {
+    background: #505160;
+    padding: 0.5em;
+    position: sticky;
+    top: 0;
+=======
+/* Color declerations need var(--colorname) to use */
+:root {
+  --thunder-cloud: #505160;
+  --waterfall: #68829e;
+  --moss: #aebd38;
+  --meadow: #598234;
+}
+
+body {
+  margin: 0;
+}
+
+footer div {
+  background-color: #aebd38;
+}
+
+nav.mainlinks {
+  background: var(--thunder-cloud);
+  padding: 0.5em;
+  font-family: sans-serif;
+  line-height: 1.5;
+  position: sticky;
+  top: 0;
+>>>>>>> 19a81836f77e719e8a32a1c8e8391fa80e7a4884
+}
+
+nav.mainlinks ul {
+    padding: 0;
+    margin: 0 auto;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+nav.mainlinks ul li {
+    margin-right: 0.2em;
+}
+
+nav.mainlinks li a {
+    padding: 0 0.5em;
+    text-decoration: none;
+    color: white;
+    font-size: 1em;
+}
+
+nav.mainlinks li a:hover,
+nav.mainlinks li a:focus {
+<<<<<<< HEAD
+    color: #598234;
+}
+
+nav.mainlinks li a:active {
+    color: #68829e;
+=======
+  color: var(--meadow);
+}
+
+nav.mainlinks li a:active {
+  color: var(--waterfall);
+>>>>>>> 19a81836f77e719e8a32a1c8e8391fa80e7a4884
+}
+
+@media (min-width: 675px) {}
