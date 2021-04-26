@@ -1,17 +1,20 @@
-/* colors to use
-#505160 thunder cloud
-#68829E waterfall
-#AEBD38 moss
-#598234 meadow
-*/
+/* Color declerations need var(--colorname) to use */
+:root {
+  --thunder-cloud: #505160;
+  --waterfall: #68829e;
+  --moss: #aebd38;
+  --meadow: #598234;
+}
+
 body {
   margin: 0;
-  background-color: ;
 }
 
 nav.mainlinks {
-  background: #505160;
+  background: var(--thunder-cloud);
   padding: 0.5em;
+  font-family: sans-serif;
+  line-height: 1.5;
   position: sticky;
   top: 0;
 }
@@ -38,11 +41,11 @@ nav.mainlinks li a {
 
 nav.mainlinks li a:hover,
 nav.mainlinks li a:focus {
-  color: #598234;
+  color: var(--meadow);
 }
 
 nav.mainlinks li a:active {
-  color: #68829e;
+  color: var(--waterfall);
 }
 
 @media (min-width: 675px) {
