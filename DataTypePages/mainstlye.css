@@ -5,16 +5,32 @@
 #598234 meadow
 */
 
+:root {
+    --thunder-cloud: #505160;
+    --waterfall: #68829e;
+    --moss: #aebd38;
+    --meadow: #598234;
+}
+
 body {
     margin: 0;
-    background-color: ;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    background-color: #f2f6fa;
 }
 
 nav.mainlinks {
-    background: #505160;
-    padding: 0.5em;
+    background: var(--thunder-cloud);
+    padding: 0.5em 0;
+    line-height: 1.5;
     position: sticky;
     top: 0;
+}
+
+.maincontent {
+    margin: 0 auto;
+    display: block;
+    max-width: 1200px;
+    min-width: 300px;
 }
 
 nav.mainlinks ul {
@@ -23,7 +39,7 @@ nav.mainlinks ul {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: start;
 }
 
 nav.mainlinks ul li {
@@ -31,7 +47,7 @@ nav.mainlinks ul li {
 }
 
 nav.mainlinks li a {
-    padding: 0 0.5em;
+    padding-right: 0.5em;
     text-decoration: none;
     color: white;
     font-size: 1em;
@@ -39,11 +55,11 @@ nav.mainlinks li a {
 
 nav.mainlinks li a:hover,
 nav.mainlinks li a:focus {
-    color: #598234;
+    color: var(--meadow);
 }
 
 nav.mainlinks li a:active {
-    color: #68829e;
+    color: var(--waterfall);
 }
 
 @media (min-width: 675px) {}
