@@ -17,8 +17,24 @@ h1 {
   background-color: var(--meadow);
   color: rgb(228, 255, 110);
   margin: 0 auto;
-  max-width: 1200px;
+  font-size: 2em;
+  line-height: 1;
+  font-weight: 600;
+  max-width: 20em;
   padding: 1em 0;
+}
+
+footer {
+  background-color: #aebd38;
+  line-height: 1.5;
+}
+
+footer p:first-child {
+  font-size: 1.5em;
+}
+
+footer p {
+  margin: 0;
 }
 
 nav.mainlinks {
@@ -96,5 +112,8 @@ nav.mainlinks li a:active {
 @media (min-width: 992px) {
   .maincontent {
     max-width: 60em;
+  }
+  h1 {
+    max-width: 30em;
   }
 }

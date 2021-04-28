@@ -2,8 +2,6 @@ table {
   margin: 0 auto;
   display: block;
   border-collapse: collapse;
-  /* max-width: 800px;
-    min-width: 600px;*/
 }
 
 table th {
