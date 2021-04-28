@@ -53,7 +53,7 @@ nav.mainlinks {
 
 .pagetitle {
   margin: 0;
-  padding-top: 0.3em;
+  padding: 0.3em 0;
   font-size: 1.7em;
   font-style: italic;
 }
@@ -98,6 +98,13 @@ nav.mainlinks li a:focus {
 
 nav.mainlinks li a:active {
   color: var(--waterfall);
+}
+
+#homepicture {
+  height: 100%;
+  width: 100%;
+  padding-bottom: 0.3em;
+  object-fit: contain;
 }
 
 @media (min-width: 576px) {
