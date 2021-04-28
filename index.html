@@ -10,22 +10,41 @@
     <!-- END SHARED -->
   </head>
   <body>
-    <header><h1>NAMEOFWEBSITE</h1></header>
+    <div class="mainheading">
+      <header><h1>Box Office Database</h1></header>
 
-    <nav class="mainlinks">
-      <ul>
-        <li><a title="Home page" href="#">Home</a></li>
-        <li>
-          <a title="Movie home page" href="DataTypePages/Movies.html">Movies</a>
-        </li>
-        <!-- <li>Shows</li>  may or may not do shows instead or as well as the movie type-->
-        <li>
-          <a title="User's Data Page" href="DataTypePages/UserData.html">User data</a>
-        </li>
-        <li><a title="Actors home page" href="DataTypePages/Actors.html">Actors</a></li>
-      </ul>
-    </nav>
+      <nav class="mainlinks">
+        <div class="maincontent">
+          <ul>
+            <li><a title="Home page" href="#">Home</a></li>
+            <li>
+              <a title="Movie home page" href="DataTypePages/Movies/Movies.html"
+                >Movies</a
+              >
+            </li>
+            <!-- <li>Shows</li>  may or may not do shows instead or as well as the movie type-->
+            <li>
+              <a title="User's Data Page" href="DataTypePages/UserData.html">User data</a>
+            </li>
+            <li>
+              <a title="Actors home page" href="DataTypePages/Actors.html">Actors</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="maincontent">
+      <header><h2 class="pagetitle">Home</h2></header>
+      <article>
+        <p>
+          Welcome to the Box Office Database. Here you can find all the information you
+          need on movies, actors, and user data. Using the navbar you can locate all of
+          the individual pages that have specified information.
+        </p>
+      </article>
+    </div>
+
+    <footer></footer>
   </body>
-
-  <footer></footer>
 </html>
