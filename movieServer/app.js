@@ -35,7 +35,8 @@ app.use(function(err, req, res, next) {
 
     // render the error page
     res.status(err.status || 500);
-    res.render('error');
+    let fileLoc = path.join(__dirname, 'public', '404.html');
+    res.sendFile(fileLoc);
 });
 
 module.exports = app;
