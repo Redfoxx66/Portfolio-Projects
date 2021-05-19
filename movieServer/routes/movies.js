@@ -9,13 +9,3 @@ var router = express.Router();
 router.get("../DataTypePages/Movies.html", function (req, res) {
   res.send("Movies.html");
 });
-
-router.get("../DataTypePages/UserData.html", function (req, res) {
-  res.sendFile("UserData.html");
-});
-
-router.get("../DataTypePages/Actors.html", function (req, res) {
-  res.send("Actors.html");
-});
-
-module.exports = router;
