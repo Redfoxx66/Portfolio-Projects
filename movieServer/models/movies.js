@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// const Actors =
+
 const ratingEnum = require("../public/javascripts/ratingEnum.js");
 
 const ratings = [];
@@ -10,16 +12,28 @@ for (let rating in ratingEnum) {
 
 //not sure about what the actor schema looks like yet
 //might have ratings be enum might just change to string later not sure
+// let movieSchema = new Schema({
+//   title: { type: String, required: true },
+//   director: { type: String, required: true },
+//   cast: [{ type: Schema.Types.ObjectId, ref: "Actor" }],
+//   releaseDate: { type: Date, required: true },
+//   rating: { type: String, require: true, enum: ratings }, // not sure enum would be effective or necessary
+//   genres: [{ type: Schema.Types.ObjectId, ref: "Genre" }], //want to access genres seprately so might be good to have as a seperate object
+//   country: { type: String },
+//   language: { type: String },
+//   duration: { type: Number, required: true }, //use as minutes and make virtual to calculate hours and mins
+// });
+
 let movieSchema = new Schema({
   title: { type: String, required: true },
   director: { type: String, required: true },
   cast: [{ type: Schema.Types.ObjectId, ref: "Actor" }],
   releaseDate: { type: Date, required: true },
-  rating: { type: String, require: true, enum: ratings }, // not sure enum would be effective or necessary
-  genres: [{ type: Schema.Types.ObjectId, ref: "Genre" }], //want to access genres seprately so might be good to have as a seperate object
+  rating: { type: String, require: true }, // not sure enum would be effective or necessary
+  genres: [{ type: String }], //want to access genres seprately so might be good to have as a seperate object
   country: { type: String },
   language: { type: String },
-  duration: { type: Date, required: true }, //unsure what type to use here
+  duration: { type: Number, required: true }, //use as minutes and make virtual to calculate hours and mins
 });
 
 movieSchema.virtual("url").get(function () {

@@ -4,9 +4,6 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-var indexRouter = require("./routes/index");
-var dataRouter = require("./routes/data");
-
 var app = express();
 
 // view engine setup
@@ -19,32 +16,41 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+var indexRouter = require("./routes/index");
 app.use("/", indexRouter);
-app.use("/DataTypePages", dataRouter);
+
+const actorsRouter = require("./routes/actors");
+app.use("/DataTypePages/Actors", actorsRouter);
+
+const userRouter = require("./routes/user");
+app.use("/DataTypePages/UserData", userRouter);
+
+// const movieRouter = require("./routes/movies");
+// app.use("/movies", movieRouter);
 
 //Use database with mongoose
 const credentials = require("./public/javascripts/dbCredentials.js");
 const mongoose = require("mongoose");
 mongoose.connect(credentials.connection_string, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    next(createError(404));
+app.use(function (req, res, next) {
+  next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function (err, req, res) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
 
-    // render the error page
-    res.status(err.status || 500);
-    let fileLoc = path.join(__dirname, 'public', '404.html');
-    res.sendFile(fileLoc);
+  // render the error page
+  res.status(err.status || 500);
+  let fileLoc = path.join(__dirname, "public", "404.html");
+  res.sendFile(fileLoc);
 });
 
 module.exports = app;
