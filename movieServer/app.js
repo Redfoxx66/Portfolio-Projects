@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // app.use("/", indexRouter);
 
 const actorsRouter = require("./routes/actors");
-app.use("/DataTypePages/Actors", actorsRouter);
+app.use("/actors", actorsRouter);
 
 const userRouter = require("./routes/user");
 app.use("/DataTypePages/UserData", userRouter);
