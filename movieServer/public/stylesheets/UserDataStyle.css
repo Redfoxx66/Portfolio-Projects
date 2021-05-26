@@ -11,6 +11,11 @@ th {
     border: 1px solid black;
 }
 
+.center {
+    display: block;
+    margin: auto;
+}
+
 h2 {
     margin-left: 45%;
     margin-right: 40%;

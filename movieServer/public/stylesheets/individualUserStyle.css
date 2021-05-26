@@ -1,3 +1,17 @@
-.li {
-  list-style-type: none;
+li {
+    list-style-type: none;
+    margin-top: 1%;
+}
+
+ul {
+    margin-top: 1%;
+}
+
+.userInfo {
+    margin-top: 3%;
+}
+
+h2 {
+    display: block;
+    text-align: center;
 }
