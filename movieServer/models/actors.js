@@ -6,11 +6,12 @@ var actorSchema = new Schema({
   born: { type: String, required: true },
   height: { type: Number },
   twitter: { type: String },
-  movies: [{ type: Schema.Types.ObjectId, ref: "Movie" }],
+  movies: [{ type: String }],
+//  movies: [{ type: Schema.Types.ObjectId, ref: "Movie" }],
 });
 
 actorSchema.virtual("url").get(function () {
-  return "/actor/id/" + this._id;
+  return "/actors/id/" + this._id;
 });
 
 //Export model
