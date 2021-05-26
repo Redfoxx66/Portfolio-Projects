@@ -13,6 +13,13 @@ const Actors = [
     twitter: "https://twitter.com/no-one",
     movies: ["movie1", "movie2"],
   },
+  {
+    name: "Someone Super important",
+    born: "1/5/10",
+    height: 8,
+    twitter: "https://twitter.com/Someone-Super-important",
+    movies: ["movie1", "movie2"],
+  },
 ];
 
 module.exports = Actors;
