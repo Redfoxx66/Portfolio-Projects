@@ -16,8 +16,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-var indexRouter = require("./routes/index");
-app.use("/", indexRouter);
+// var indexRouter = require("./routes/index");
+// app.use("/", indexRouter);
 
 const actorsRouter = require("./routes/actors");
 app.use("/DataTypePages/Actors", actorsRouter);
@@ -25,8 +25,8 @@ app.use("/DataTypePages/Actors", actorsRouter);
 const userRouter = require("./routes/user");
 app.use("/DataTypePages/UserData", userRouter);
 
-// const movieRouter = require("./routes/movies");
-// app.use("/movies", movieRouter);
+const movieRouter = require("./routes/movies");
+app.use("/movies", movieRouter);
 
 app.get("*", function(req, res) {
     res.status(404);
