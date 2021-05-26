@@ -28,21 +28,21 @@ app.use("/DataTypePages/UserData", userRouter);
 const movieRouter = require("./routes/movies");
 app.use("/movies", movieRouter);
 
-app.get("*", function(req, res) {
-    res.status(404);
-    let fileLoc = path.join(__dirname, 'public', '404.html')
-    res.sendFile(fileLoc);
-})
+app.get("*", function (req, res) {
+  res.status(404);
+  let fileLoc = path.join(__dirname, "public", "404.html");
+  res.sendFile(fileLoc);
+});
 
 //Use database with mongoose
 const credentials = require("./public/javascripts/dbCredentials.js");
 const mongoose = require("mongoose");
 mongoose.connect(credentials.connection_string, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
-//Not using vanilla 404 router below 
+//Not using vanilla 404 router below
 
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
