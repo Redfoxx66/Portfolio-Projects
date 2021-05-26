@@ -8,10 +8,9 @@
         <%- title %>
     </title>
 
-    <link rel="stylesheet" href="../stylesheets/mainstlye.css" />
+    <link rel="stylesheet" href="../../stylesheets/mainstlye.css" />
 
-    <!-- END SHARED -->
-    <link rel="stylesheet" href="../stylesheets/moviestyle.css" />
+    <link rel="stylesheet" href="../../stylesheets/moviestyle.css" />
 </head>
 
 <body>
@@ -27,7 +26,7 @@
             <a title="Home page" href="/index.html">Home</a>
           </li>
           <li>
-            <a title="Movie home page" href="#">Movies</a>
+            <a title="Movie home page" href="/movies">Movies</a>
           </li>
           <li>
             <a title="User's Data Page" href="/UserData">User data</a>
@@ -47,8 +46,9 @@
         <%- title %>
       </h2>
     </header>
-    <img src="Sprited Away.jpg" alt="Poster for the movie Spirited Away with the main character looking towards the veiwer" class="movieimg" />
+    <!-- <img src="Sprited Away.jpg" alt="Poster for the movie Spirited Away with the main character looking towards the veiwer" class="movieimg" /> -->
 
+    <% console.log(cast) %> 
     <article>
       <p>Director:
         <%- director %>
@@ -58,38 +58,21 @@
         <table>
             <thead>
                 <th>Actor/Actress</th>
-                <th>Character</th>
+                <!-- <th>Character</th> -->
             </thead>
 
             <tbody>
+              <% for(let actor of cast) { %> 
                 <tr>
-                    <td><a href="#">Rumi Hiiragi</a></td>
-                    <td>Chihiro Ogino / Sen</td>
+                    <td><a href="#"><%- actor %> </a></td>
+                    <!-- <td>Chihiro Ogino / Sen</td> -->
                 </tr>
+              <% } _%> 
 
-                <tr>
-                    <td><a href="#">Miyu Irino</a></td>
-                    <td>Haku</td>
-                </tr>
-
-                <tr>
-                    <td><a href="#">Mari Natsuki</a></td>
-                    <td>Yubaba / Zeniba</td>
-                </tr>
-
-                <tr>
-                    <td><a href="#">Takashi Naitô</a></td>
-                    <td>Akio Ogino</td>
-                </tr>
-
-                <tr>
-                    <td><a href="#">Yasuko Sawaguchi</a></td>
-                    <td>Yûko Ogino</td>
-                </tr>
             </tbody>
         </table>
 
-        <p>Release Date: <time datetime="<%- releaseDate %>"><%- date_short %></time></p>
+        <p>Release Date: <time datetime="<%- releaseDate %>"><%- year %></time></p>
         <p>Motion Picture Rating:
           <%- rating %>
         </p>
@@ -98,11 +81,8 @@
           <p>Genres:</p>
           <ul>
           <% for(let genre of genres) { _%> 
-            <li><a href="<%- genre.url %> "><%- genre.title %></a></li>
-            <!-- <li><a href="#">Adventure</a></li>
-            <li><a href="#">Family</a></li>
-            <li><a href="#">Fantasy</a></li>
-            <li><a href="#">Mystery</a></li> -->
+            <!-- <li><a href="<%- genre.url %> "><%- genre.title %></a></li> -->
+            <li><a href="#"><%- genre %></a></li>
             <% } %> 
           </ul>
         </div>
@@ -110,7 +90,7 @@
         <p>Country: <%- country %></p>
         <p>Language: <%- language %></p>
         <!-- write virtual code to do the proper date time given minutes -->
-        <p>Duration: <!-- <time datetime="2h 5m" -->><%- runtime %></time></p>
+        <p>Duration: <!-- <time datetime="2h 5m" --><%- `${duration} min` %></time></p>
     </article>
 </main>
 

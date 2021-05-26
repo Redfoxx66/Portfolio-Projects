@@ -16,8 +16,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-var indexRouter = require("./routes/index");
-app.use("/", indexRouter);
+// var indexRouter = require("./routes/index");
+// app.use("/", indexRouter);
 
 const actorsRouter = require("./routes/actors");
 app.use("/DataTypePages/Actors", actorsRouter);
@@ -25,8 +25,8 @@ app.use("/DataTypePages/Actors", actorsRouter);
 const userRouter = require("./routes/user");
 app.use("/DataTypePages/UserData", userRouter);
 
-// const movieRouter = require("./routes/movies");
-// app.use("/movies", movieRouter);
+const movieRouter = require("./routes/movies");
+app.use("/movies", movieRouter);
 
 //Use database with mongoose
 const credentials = require("./public/javascripts/dbCredentials.js");
@@ -34,6 +34,13 @@ const mongoose = require("mongoose");
 mongoose.connect(credentials.connection_string, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+});
+
+//catch bad request and serve up 404
+app.get("*", async (req, res) => {
+  //res.status = 404;
+  let fileLoc = path.join(__dirname, "..", "public", "404.html");
+  res.sendFile(fileLoc);
 });
 
 // catch 404 and forward to error handler

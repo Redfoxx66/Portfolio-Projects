@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en-US">
+<%- include("shared-header.ejs", {title: "All Movies"}) %> 
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>All Movies</title>
-
-    <link rel="stylesheet" href="../stylesheets/mainstlye.css" />
-
-    <!-- END SHARED -->
     <link rel="stylesheet" href="../stylesheets/moviestyle.css" />
 </head>
 
@@ -46,16 +37,12 @@
       </h2>
     </header>
 
-    <hr>
-
-    <% if(genres.length > 0 ) { %> 
-    <div class="inlinelist">
-        <ul>
-        <% for(let movie of movies) { _%> 
-        <li><a href="<%- movie.url %> "><%- movie.title %></a></li>
-        <% } %> 
-        </ul>
-    </div>
+    <% if(movies.length > 0 ) { %> 
+    <ul class="movieDisplay">
+    <% for(let movie of movies) { _%> 
+    <li><a href="<%- movie.url %> "><%- movie.title %></a></li>
+    <% } %> 
+    </ul>
     <% } %> 
 
 </main>

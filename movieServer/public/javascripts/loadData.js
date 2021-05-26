@@ -18,41 +18,68 @@ async function loadMoviesandActors() {
   await Movie.deleteMany();
   await Actors.deleteMany();
 
-  const actorRecords = [];
+  // const actorRecords = [];
   // const actorMap = new Map();
 
   for (let actor of actors) {
-    const actorRecord = new Actors(actor);
-    actorRecords.push(actorRecord);
+    const actorRecord = new Actors({
+      name: actor.name,
+      born: actor.born,
+      height: actor.height,
+      twitter: actor.twitter,
+      // movies: actor.movies,
+    });
+    actorRecord.movies = [];
 
-    // actorMap.set(actor.name, { movies: actor.movies });
+    await actorRecord.save();
   }
-
-  const movieRecords = [];
-  const movieMap = new Map();
 
   for (let movie of movies) {
     const movieRecord = new Movie(movie);
-    movieRecords.push(movieRecord);
-    movieMap.set(movie.title, { cast: movie.cast });
+    await movieRecord.save();
   }
 
-  for (let i = 0; i < movieRecords.length; i++) {
-    //array of actors for this movie
-    let actors = movieMap.get(movieRecords[i].title).cast;
-    console.log(actors);
-    for (let actor of actors) {
-      for (let actorSearch of actorRecords) {
-        if (actor === actorSearch.name) {
-          movieRecords[i].cast.push(actorSearch._id);
-          actorSearch.movies.push(movieRecords[i]._id);
-        }
-      }
-    }
-  }
+  // for (let actor of actors) {
+  // actorRecords.push(new Actors(actor));
+  // }
 
-  console.log(movieRecords);
-  console.log(actorRecords);
+  // const movieRecords = [];
+  // const movieMap = new Map();
+
+  // for (let movie of movies) {
+  //   const movieRecord = new Movie(movie);
+  //   await movieRecord.save();
+  // movieRecords.push(movieRecord);
+  // movieMap.set(movie.title, { cast: movie.cast });
+  // }
+
+  // // loop through all movies and for each movie loop through all actors to see if one matches the map,
+  // // will make more efficient later
+  // for (let i = 0; i < movieRecords.length; i++) {
+  //   //array of actors for this movie
+  //   let actors = movieMap.get(movieRecords[i].title).cast;
+  //   for (let actor of actors) {
+  //     for (let actorSearch of actorRecords) {
+  //       if (actor === actorSearch.name) {
+  //         movieRecords[i].cast.push(actorSearch._id);
+  //         actorSearch.movies.push(movieRecords[i]._id);
+  //       }
+  //     }
+  //   }
+  // }
+
+  // let combinedRecords = movieRecords.concat(actorRecords);
+  // let promises = combinedRecords.map((record) => record.save());
+
+  // let promises = actorRecords.map((record) => record.save());
+
+  // combinedRecords.forEach(async (record) => {
+  //   await record.save();
+  // });
+
+  // await Promise.all(promises);
+
+  console.log("finished loading and should have saved.");
 
   //close connection here so for now so program can exit
   mongoose.connection.close();
