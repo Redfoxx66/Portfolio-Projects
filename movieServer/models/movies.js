@@ -1,38 +1,23 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// const ratingEnum = require("../public/javascripts/ratingEnum.js");
+const ratingEnum = require("../public/javascripts/ratingEnum.js");
 
-// const ratings = [];
-// for (let rating in ratingEnum) {
-//   ratings.push(ratingEnum[rating]);
-// }
-
-//not sure about what the actor schema looks like yet
-//might have ratings be enum might just change to string later not sure
-// let movieSchema = new Schema({
-//   title: { type: String, required: true },
-//   director: { type: String, required: true },
-//   cast: [{ type: Schema.Types.ObjectId, ref: "Actor" }],
-//   releaseDate: { type: Date, required: true },
-//   rating: { type: String, require: true, enum: ratings }, // not sure enum would be effective or necessary
-//   genres: [{ type: Schema.Types.ObjectId, ref: "Genre" }], //want to access genres seprately so might be good to have as a seperate object
-//   country: { type: String },
-//   language: { type: String },
-//   duration: { type: Number, required: true }, //use as minutes and make virtual to calculate hours and mins
-// });
+const ratings = [];
+for (let rating in ratingEnum) {
+  ratings.push(ratingEnum[rating]);
+}
 
 let movieSchema = new Schema({
   title: { type: String, required: true },
   director: { type: String, required: true },
-  // cast: [{ type: Schema.Types.ObjectId, ref: "Actor" }],
-  cast: [{ type: String }],
+  cast: [{ type: Schema.Types.ObjectId, ref: "Actor" }],
   releaseDate: { type: Date, required: true },
-  rating: { type: String, require: true },
-  genres: [{ type: String }],
+  rating: { type: String, require: true, enum: ratings },
+  genres: [{ type: Schema.Types.ObjectId, ref: "Genre" }],
   country: { type: String },
   language: { type: String },
-  duration: { type: Number, required: true },
+  duration: { type: Number, required: true }, //use as minutes and make virtual to calculate hours and mins
 });
 
 movieSchema.virtual("url").get(function () {
@@ -41,9 +26,19 @@ movieSchema.virtual("url").get(function () {
 
 //might rename to date, this is to be release date it might have more than just the year it might not
 movieSchema.virtual("date_short").get(function () {
-  const date = this.releaseDate;
+  let date = this.releaseDate;
+  date = date.toISOString().slice(0, 10);
 
-  let dateString = date.getMonth() + 1 + "/" + date.getDay() + "/" + date.getFullYear();
+  let year = date.slice(0, 4);
+  let month = date.slice(5, 7);
+  let day = date.slice(8, 10);
+
+  if (month[0] === "0") month = month[1];
+
+  if (day[0] === "0") day = day[1];
+
+  let dateString = month + "/" + day + "/" + year;
+
   return dateString;
 });
 
