@@ -7,6 +7,7 @@ mongoose.connect(credentials.connection_string, {
 
 //load models
 const Movie = require("../../models/movies.js");
+const Genre = require("../../models/genres.js");
 const User = require("../../models/userModel.js");
 const Actors = require("../../models/actors.js");
 
@@ -14,50 +15,112 @@ const Actors = require("../../models/actors.js");
 const movies = require("./movieData.js");
 const actors = require("./actorData.js");
 const users = require("./userData.js");
-const Users = require("./userData.js");
+const ratingEnum = require("./ratingEnum.js");
 
 async function loadMoviesandActorsandUsers() {
   await Movie.deleteMany();
+  await Genre.deleteMany();
   await Actors.deleteMany();
   await User.deleteMany();
 
+  //   // const actorMap = new Map();
+
+  const actorRecords = [];
   for (let actor of actors) {
     const actorRecord = new Actors({
       name: actor.name,
       born: actor.born,
       height: actor.height,
       twitter: actor.twitter,
-      // movies: actor.movies,
     });
     actorRecord.movies = [];
 
-    await actorRecord.save();
+    actorRecords.push(actorRecord);
   }
+
+  const movieRecords = [];
+  const movieMap = new Map();
+  const genreMap = new Map();
 
   for (let movie of movies) {
-    const movieRecord = new Movie(movie);
-    //   title: movie.title,
-    //   director: movie.director,
-    // });
-    // for (let castMember of movie.cast) {
-    //   // console.log(castMember);
-    //   let actor = await Actors.find().where("name").equals(castMember).exec();
+    const movieRecord = new Movie({
+      title: movie.title,
+      director: movie.director,
+    });
 
-    //   //console.log(actor);
-    //   //need to link up movies to actors afterwards
-    //   movieRecord.cast = actor;
-    // }
-    // movieRecord.releaseDate = movie.releaseDate;
-    // //may use enum here
-    // movieRecord.rating = movie.rating;
-    // // movieRecord.genres fix this up to work later
-    // movieRecord.genres = ["fantasy", "mystery"];
-    // movieRecord.country = movie.country;
-    // movieRecord.language = movie.language;
-    // movieRecord.duration = movie.duration;
+    movieRecord.cast = [];
+    movieMap.set(movie.title, { cast: movie.cast });
 
-    await movieRecord.save();
+    movieRecord.releaseDate = movie.releaseDate;
+    switch (movie.rating) {
+      case "G":
+        movieRecord.rating = ratingEnum.G;
+        break;
+
+      case "PG":
+        movieRecord.rating = ratingEnum.PG;
+        break;
+
+      // so if it is either blank or pg 13 of some kind will be set to PG13 automatically
+      //   case "PG 13":
+      //     movieRecord.rating = ratingEnum.PG13;
+      //     break;
+
+      case "R":
+        movieRecord.rating = ratingEnum.R;
+        break;
+
+      default:
+        movieRecord.rating = ratingEnum.PG13;
+        break;
+    }
+
+    for (let genre of movie.genres) {
+      //if genre doesn't exist make a new one and save it to the map
+      if (!genreMap.has(genre)) {
+        let newGenre = new Genre({ title: genre });
+        await newGenre.save();
+        genreMap.set(genre, newGenre);
+      }
+      movieRecord.genres.push(genreMap.get(genre));
+      //same thing just more visual for logging
+      //   movieRecord.genres.push(genreMap.get(genre)._id);
+    }
+
+    movieRecord.country = movie.country;
+    movieRecord.language = movie.language;
+    movieRecord.duration = movie.duration;
+
+    movieRecords.push(movieRecord);
   }
+
+  for (let movie of movieRecords) {
+    let actors = movieMap.get(movie.title).cast;
+    for (let actor of actors) {
+      for (let actorSearch of actorRecords) {
+        if (actor === actorSearch.name) {
+          movie.cast.push(actorSearch._id);
+          actorSearch.movies.push(movie._id);
+        }
+      }
+    }
+  }
+
+  //optional alternate way to print movie records (not as pretty no color)
+  //   console.log(`movie records to save:\n${movieRecords}`);
+
+  //   console.log(`movie records to save:`);
+  //   console.log(movieRecords);
+
+  //   console.log("\nactor records to save:");
+  //   console.log(actorRecords);
+
+  let combinedRecords = movieRecords.concat(actorRecords);
+  let promises = combinedRecords.map((record) => record.save());
+  await Promise.all(promises);
+
+  console.log("\nfinished loading movies");
+  console.log("finished loading actors");
 
   for (let user of users) {
     const curUser = new User({
@@ -77,8 +140,11 @@ async function loadMoviesandActorsandUsers() {
     }
 
     await curUser.save();
-    console.log(curUser);
+    // console.log(curUser);
   }
+
+  console.log("finished loading users\nEverything loaded sucssesfully");
+
   mongoose.connection.close();
 }
 
