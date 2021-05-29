@@ -13,9 +13,8 @@ router.get("/", async function (req, res) {
   res.render("actorList.ejs", { actorList });
 });
 
-
 router.get("/id/:id", async function (req, res) {
-  const actor = await Actor.findById(req.params.id);
+  const actor = await Actor.findById(req.params.id).populate("movies", "title").exec();
   console.log(actor);
   res.render("actor.ejs", actor);
 });

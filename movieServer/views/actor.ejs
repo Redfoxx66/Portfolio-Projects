@@ -15,7 +15,7 @@
                 <ul>
                     <li><a title="Home page" href="/index.html">Home</a></li>
                     <li>
-                        <a title="Movie home page" href="/movies">Movies</a>
+                        <a title="Movie home page" href="/movies/">Movies</a>
                     </li>
                     <li>
                         <a title="User's Data Page" href="/DataTypePages/UserData.html">User data</a>
@@ -47,7 +47,7 @@
             <ul>
                 <% for (let m of movies) { %>
                     <li>
-                        <%- m %>
+                        <a href="<%- m.url %> "><%- m.title %></a>
                     </li>
                     <% } %>
             </ul>

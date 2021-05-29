@@ -102,6 +102,8 @@ async function loadMoviesandActorsandUsers() {
           movie.cast.push(actorSearch._id);
           actorSearch.movies.push(movie._id);
         }
+        movie.update(actorSearch._id);
+        actorSearch.update(movie._id);
       }
     }
   }
@@ -109,11 +111,11 @@ async function loadMoviesandActorsandUsers() {
   //optional alternate way to print movie records (not as pretty no color)
   //   console.log(`movie records to save:\n${movieRecords}`);
 
-  //   console.log(`movie records to save:`);
-  //   console.log(movieRecords);
+  // console.log(`movie records to save:`);
+  // console.log(movieRecords);
 
-  //   console.log("\nactor records to save:");
-  //   console.log(actorRecords);
+  // console.log("\nactor records to save:");
+  // console.log(actorRecords);
 
   let combinedRecords = movieRecords.concat(actorRecords);
   let promises = combinedRecords.map((record) => record.save());

@@ -13,7 +13,7 @@ const Movies = [
   {
     title: "Funny Movie ",
     director: "Hayao Miy",
-    cast: ["quinn", "Someone Super", "Noel"],
+    cast: ["quinn", "Someone Super", "Noel", "Pig"],
     releaseDate: Date.parse("2661"),
     rating: "G",
     genres: ["skip", "ship", "hip", "dip", "quip"],

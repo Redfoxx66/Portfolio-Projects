@@ -2,25 +2,15 @@ var express = require("express");
 var router = express.Router();
 var path = require("path");
 
-// const movieController = require("../controllers/movieController.js");
-const Movie = require("../models/movies.js");
+const movieController = require("../controllers/movieController.js");
 
-// router.get("/", movieController.movieList);
-router.get("/", async function (req, res) {
-  let movieList = await Movie.find().sort("title").exec();
-  console.log(movieList);
-  res.render("movieList.ejs", { movies: movieList });
-});
+router.get("/", movieController.movieList);
 
-router.get("/id/:id", async function (req, res) {
-  let movie = await Movie.findById(req.params.id).exec();
-  console.log(movie);
-  res.render("movie.ejs", movie);
-});
+router.get("/id/:id", movieController.movieById);
+
+router.get("/create", movieController.create);
 
 // router.get("/:title/:id", movieController.movie);
-
-// router.get("/id/:id", movieController.gameById);
 
 router.get("*", async (req, res) => {
   //res.status = 404;
