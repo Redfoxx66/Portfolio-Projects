@@ -51,6 +51,8 @@ const storage = new GridFsStorage({
 const upload = multer({ storage });
 
 
+
+
 const Movies = require("../models/movies.js");
 const Actors = require("../models/actors.js");
 const user = require("../models/userModel.js");
@@ -106,6 +108,13 @@ router.get("/users/update/:id", async function(req, res) {
         actors: actorsList,
     });
 });
+
+router.get("/users/addProfilePic/:id", async function(req, res) {
+    let curUser = await user.findById(req.params.id);
+    res.render("userPicForm.ejs", {
+        user: curUser
+    })
+})
 
 router.get("/users/:id", async function(req, res) {
     const curUser = await user.findById(req.params.id);
@@ -180,6 +189,9 @@ router.get("/users/delete/:id", async function(req, res) {
 
 router.post("/users/update/:id", userController.update_post);
 
+router.post("/users/addProfilePic/:id", upload.single('profilePic'), (req, res) => {
+    res.redirect("/users");
+})
 
 
 router.get("*", async(req, res) => {
