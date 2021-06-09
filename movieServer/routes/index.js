@@ -4,7 +4,8 @@ var path = require("path");
 
 /* GET home page. */
 router.get("/", function (req, res) {
-  res.render("index.html");
+  let fileLoc = path.join(__dirname, "..", "public", "index.html");
+  res.sendFile(fileLoc);
 });
 
 router.get("*", async (req, res) => {

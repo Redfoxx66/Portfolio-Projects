@@ -1,23 +1,34 @@
 // var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const express = require("express");
+const app = express();
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 
-var app = express();
+//Matthew Walker's needed packages and middlewares for API
+//most likely used this way
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+
+const movieAPIRoutes = require("./routes/movieAPI.js");
+app.use("/movieAPI", movieAPIRoutes);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+
+//set the path of the jquery file to be used from the node_module jquery package
+// app.use("/jquery", express.static(path.join(__dirname + "/node_modules/jquery/dist/")));
 
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
-// var indexRouter = require("./routes/index");
-// app.use("/", indexRouter);
 
 const actorsRouter = require("./routes/actors");
 app.use("/actors", actorsRouter);

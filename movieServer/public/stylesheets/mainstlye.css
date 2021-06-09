@@ -115,6 +115,14 @@ nav.mainlinks li a:active {
   .maincontent {
     max-width: 40em;
   }
+  footer p {
+    margin: 0 auto;
+    max-width: 40em;
+  }
+
+  footer p:first-child {
+    max-width: 26.667em;
+  }
 }
 
 @media (min-width: 768px) {

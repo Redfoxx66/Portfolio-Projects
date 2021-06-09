@@ -22,9 +22,6 @@ router.get("/update/:id", movieController.update_get);
 
 router.post("/update/:id", movieController.update_post);
 
-//might do this instead of the "/id/:id" just to give it a more personable/readable url
-// router.get("/:title/:id", movieController.movie);
-
 router.get("*", async (req, res) => {
   //res.status = 404;
   let fileLoc = path.join(__dirname, "..", "public", "404.html");

@@ -15,6 +15,7 @@ exports.movieList = async function (req, res, next) {
   try {
     let movieList = await Movie.find().sort("title").exec();
     res.render("movieList.ejs", { movies: movieList });
+    // res.json(movieList);
   } catch (err) {
     next(err);
   }
@@ -25,7 +26,7 @@ exports.movieById = async function (req, res, next) {
     let movie = await Movie.findById(req.params.id)
       .populate("cast genres", "name title")
       .exec();
-    // console.log(movie);
+    console.log(movie);
     res.render("movie.ejs", movie);
   } catch (err) {
     next(err);
