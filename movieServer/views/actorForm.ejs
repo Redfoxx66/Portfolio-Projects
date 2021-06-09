@@ -1,14 +1,36 @@
 <%- include("header.ejs", {title: title }) %>
+<link rel="stylesheet" href="/stylesheets/ActorsStyle.css">
 <style>
   p {font-size: 1.1em;} 
 </style>
-<nav>
-  <a href="/" class="btn btn-light" style="background-color: #505160; color: white;">Home</a>
-</nav>
-<br>
   </head>
-    <body style="background-color: #598234;">
-      <header><h1>Actor Form</h1></header>
+    <body>
+        <div class="mainheading">
+            <header>
+                <h1>Box Office Database</h1>
+            </header>
+
+            <nav class="mainlinks">
+                <div class="maincontent">
+                    <ul>
+                        <li>
+                            <a title="Home page" href="/index.html">Home</a>
+                        </li>
+                        <li>
+                            <a title="Movie home page" href="/movies/">Movies</a>
+                        </li>
+                        <li>
+                            <a title="User's Data Page" href="/DataTypePages/UserData.html">User data</a>
+                        </li>
+                        <li>
+                            <a title="Actors home page" href="/actors">Actors</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+      <header class="formHeader"><h2>Actor Form</h2></header>
 
       <% if(locals.errors) {   //Check to see if there is an errors variable %>
         <div class="alert alert-danger">
@@ -19,12 +41,8 @@
           </ul>
         </div>
       <% } %>
-
-
-
-        <!-- // image: { type: ???}, -->
         
-        <form style="background-color: #598234; color: rgb(228, 255, 110);" method="POST" action="/actors/update/<%- actor._id %>">
+        <form class="maincontent" method="POST" action="/actors/update/<%- actor._id %>">
           <input type="hidden" name="id" value="<%- actor._id %>" >
         
           <div class="mb-3">
@@ -38,7 +56,12 @@
             <input type="date" class="form-control" name="born" id="born"
             value="<%- actor.born === undefined ? actor.born : actor.born %>" required>
           </div>
-        
+  
+          <div class="mb-3">
+            <label for="image" class="form-label">Enter a actor image url (optional)</label>
+            <input type="url" class="form-control" name="image" id="image" value="<%- actor.image %>">
+        </div>
+
           <div class="mb-3">
             <label for="height" class="form-label">Height (by feet)</label>
             <input type="number" class="form-control" name="height" id="height"
@@ -46,7 +69,7 @@
           </div>
         
           <div class="mb-3">
-            <label for="twitter" class="form-label">Twitter account name</label>
+            <label for="twitter" class="form-label">Twitter account name (input your @ name without the @)</label>
             <input type="text" class="form-control" name="twitter" id="twitter"
               value="<%- actor.twitter %>" >
           </div>
@@ -60,13 +83,15 @@
             </select>
           </div>    
 
+
           <br>
           <button class="btn btn-primary my-3" type="submit">Submit</button>
       </form>
 
       <footer style="background-color: #aebd38;">
-        <p>Page by JMM</p>
-        <p> &copy <time datetime="2021-4-26">April 2021</time> <br /> BoxOffice.com </p>
+        <p>Page by JMM <br>
+          © <time datetime="2021-5-26">May 2021</time> <br /> BoxOffice.com
+      </p>
       </footer>
     </body>
   </html>
