@@ -4,11 +4,10 @@ var router = express.Router();
 const Movie = require("../models/movies.js");
 const Genre = require("../models/genres.js");
 const Actor = require("../models/actors.js");
-const { includes } = require("../public/javascripts/userData.js");
 
+//Main route to get all objects with directory /movieAPI
 router.get("/", async (req, res) => {
   try {
-    // let movies = await Movie.find().exec();
     let movies = await Movie.find();
     res.json(movies);
   } catch (error) {
@@ -16,18 +15,15 @@ router.get("/", async (req, res) => {
   }
 });
 
+//search for specific movie by title /movieAPI/title/:title
 router.get("/title/:title", async (req, res) => {
   try {
-    console.log("Original search value: ", req.params.title);
     let searchValue = req.params.title.trim().toLowerCase();
-    console.log("lowercased and trimmed: ", searchValue);
     searchValue = searchValue.split(" ");
     for (let i = 0; i < searchValue.length; i++) {
       searchValue[i] = searchValue[i].charAt(0).toUpperCase() + searchValue[i].slice(1);
     }
-    // console.log(searchValue);
     searchValue = searchValue.join(" ");
-    console.log("value after capitalized: ", searchValue);
     let movie = await Movie.findOne().where("title").eq(searchValue);
     res.json(movie);
   } catch (error) {
@@ -35,9 +31,10 @@ router.get("/title/:title", async (req, res) => {
   }
 });
 
+//post route that posts form /movieAPI
 router.post("/", async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     if (Array.isArray(req.body)) {
       //do something for each movie
       let movie = req.body;
@@ -49,7 +46,6 @@ router.post("/", async (req, res) => {
       });
       res.json({ message: "multiple movies were created" });
     } else if (typeof req.body === "object") {
-      console.log("about to make it to the call");
       let movieCreated = await makeMovieObject(req.body);
       res.json(movieCreated);
     } else {
@@ -60,6 +56,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+//function to help make movie object
 async function makeMovieObject(newMovie, multipleMovies = false) {
   let movie = new Movie({
     title: newMovie.title,
@@ -145,6 +142,8 @@ async function makeMovieObject(newMovie, multipleMovies = false) {
   }
 }
 
+//router with 3 different handles all at the point /movieAPI/movie/id/:id
+//can either get, delete, or put (update)
 router
   .route("/movie/id/:id")
   .all((req, res, next) => {
@@ -216,7 +215,6 @@ router
       movie.title = req.body.title;
       movie.director = req.body.director;
 
-      let newActorSelection = req.body.cast;
       let newCast = [];
 
       if (req.body.cast !== undefined) {

@@ -42,6 +42,16 @@ li.castMember {
   /* border-radius: 0.2em; */
 }
 
+p.genreLink {
+  display: inline;
+  padding-left: 4em;
+}
+
+header,
+#movieListHeader {
+  display: inline;
+}
+
 button {
   display: inline-block;
   font-weight: 400;

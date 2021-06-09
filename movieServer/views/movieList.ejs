@@ -30,25 +30,12 @@
   </div>
 
   <main class="maincontent">
-    <!-- <header><h2 class="pagetitle">Movie Database</h2></header> -->
     <header>
-      <h2 class="pagetitle">List of all movies</h2>
+      <h2 id="movieListHeader" class="pagetitle">List of all movies</h2>
     </header>
-    <!-- need to make these side by side -->
-    <p><a href="genres">All Movie Genres</a></p>
-<!-- 
-    <section>
-      <p>Find Specific moive or movies that share a genre</p>
-      <label for="inputField">Movie Name:</label>
-      <input type="text" id="inputField" />
-      <input type="hidden" id="listOfMovies" value="<%-// movies %>" />
-      <button id="loadData">Search</button>
-    </section>
+  
+    <p class="genreLink"><a href="genres">All Movie Genres</a></p>
 
-    <section class="movieMatch"></section> -->
-
-    
-    <!-- <h3><em>(build ajax filtering data/sort for this page)</em></h3> -->
 
     <% if(movies.length > 0 ) { %> 
     <ul class="movieDisplay">
@@ -58,7 +45,9 @@
     </ul>
     <% } %> 
 
-    <p><a href="create">create new movie</a></p>
+    <button onclick="location.href='/movies/create/'" type="button">
+      Create New Movie</button>
+    <!-- <p><a href="create">create new movie</a></p> -->
 </main>
 
 <%- include("common-footer.ejs") %> 

@@ -216,7 +216,6 @@ exports.update_post = [
         let oldActors = await Actor.find().where("_id").eq(movie.cast).exec();
         console.log("this is the list of actors selcted", req.body.actors);
         for (let actor of oldActors) {
-          //repetitive see if can do anything about
           if (
             req.body.actors === undefined ||
             !req.body.actors.includes(String(actor._id))
@@ -227,20 +226,12 @@ exports.update_post = [
             if (actor.movies.length === 0) actor.movies = [];
             actor.save();
           }
-          // else if (!req.body.actors.includes(String(actor._id))) {
-          //   console.log("Hey this actor was unselected: ", actor.name);
-          //   let index = actor.movies.indexOf(movie._id);
-          //   if (index > -1) actor.movies.splice(index, 1);
-          //   if (actor.movies.length === 0) actor.movies = [];
-          //   actor.save();
-          // }
         }
       }
 
       if (req.body.actors === undefined) movie.cast = [];
       else movie.cast = req.body.actors;
 
-      // movie.cast = req.body.actors;
       movie.releaseDate = req.body.releaseDate;
       movie.rating = req.body.rating;
       movie.genres = declaredGenres.concat(newGenres);
