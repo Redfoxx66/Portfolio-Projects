@@ -21,6 +21,10 @@ h2 {
     margin-right: 40%;
 }
 
+.formButton {
+    margin-bottom: 2%;
+}
+
 @media (min-width: 800px) {
     button {
         margin-left: 45%;

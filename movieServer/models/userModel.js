@@ -4,9 +4,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-    userName: { type: String },
-    passWord: { type: String },
-    dateCreated: { type: Date },
+    userName: { type: String, required: [true, "You must provide a username"] },
+    passWord: { type: String, required: [true, "Your user needs a password"] },
+    dateCreated: { type: Date, required: [true, "You must provide a creation date"], max: [Date.now(), "The user can't be from the future"] },
     favMovies: [{ type: Schema.Types.ObjectId, ref: "Movies" }],
     favActors: [{ type: Schema.Types.ObjectId, ref: "Actors" }],
 });
