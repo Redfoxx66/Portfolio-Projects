@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 var actorSchema = new Schema({
   name: { type: String, required: true },
   born: { type: String, required: true },
-  image: { type: Buffer},
+  image: { type: String},
   height: { type: Number },
   twitter: { type: String },
   movies: [{ type: Schema.Types.ObjectId, ref: "Movie" }],
@@ -48,8 +48,8 @@ actorSchema.virtual("bornDate").get(function () {
 
 actorSchema.virtual("twitterAccount").get(function () {
    console.log(this.twitter);
-  if (this.twitter == null) {
-    return "https://twitter.com";
+  if (this.twitter == null || this.twitter == "") {
+    return "";
   }
   let linkCheck = this.twitter.slice(0, 20);
   if(linkCheck == "https://twitter.com/" ){
