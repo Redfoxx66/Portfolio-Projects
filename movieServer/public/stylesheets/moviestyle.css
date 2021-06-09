@@ -133,8 +133,8 @@ p.rating {
 
 @media (min-width: 450px) {
   .movieimg {
-    height: fit-content;
-    width: auto;
+    width: 12.5em;
+    height: auto;
   }
 }
 
