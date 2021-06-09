@@ -2,12 +2,6 @@ const Actor = require("../models/actors");
 const Movie = require("../models/movies");
 const user = require("../models/userModel.js");
 
-
-//list of things to do still
-// router.get("/create", actorFunctions.create);
-// router.get("/update/:id", actorFunctions.update_get);
-// router.post("/update/:id", actorFunctions.update_post);
-
 exports.actorList = async function (req, res, next) {
   try {
     let actorList = await Actor.find().sort("name").exec();
@@ -27,7 +21,6 @@ exports.actorById = async function (req, res, next) {
   }
 };
 
-//This must also delete for movie and user one
 exports.delete = async function (req, res, next) {
   try {
     await Actor.findByIdAndDelete(req.params.id).exec();
@@ -37,7 +30,6 @@ exports.delete = async function (req, res, next) {
   }
 };
 
-//This should also populate in movies and users
 exports.create = async function (req, res, next) {
   try {
     let actor = new Actor({});
@@ -78,31 +70,23 @@ exports.update_post = [
         });
       console.log("req.body");
       console.log(req.body);
-
-            
-      //go to each actor and link up their movies if the movie hasn't been added before
       let movies = await Movie.find().where("_id").eq(req.body.movies).exec();
-      // console.log("Found actor objects to link: ", actors);
       for (let m of movies) {
         if (!m.cast.includes(actor._id)) {
-          // console.log(`Movie not present for ${actor.name} so adding this movie`);
           m.cast.push(actor._id);
-
           await m.save();
         }
       }
-
-           //if updating a movie and unselecting a previously linked actor, unlink on actor end
            if (actor.movies.length > 0) {
             let oldMovies = await Movie.find().where("_id").eq(actor.movies).exec();
             console.log("Movies selcted", req.body.movies);
             for (let m of oldMovies) {
-              //repetitive see if can do anything about
               if (
                 req.body.movies === undefined ||
                 !req.body.movies.includes(String(m._id))
               ) {
                 console.log("Movie unselected: ", m.title);
+                console.log(actor._id);
                 let index = m.actors.indexOf(actor._id);
                 if (index > -1) m.actors.splice(index, 1);
                 if (m.actors.length === 0) movie.cast = [];
@@ -110,10 +94,6 @@ exports.update_post = [
               }
             }
           }
-
-
-
-
       actor.name = req.body.name;
       actor.born = req.body.born;
       actor.image = req.body.image;
@@ -132,7 +112,6 @@ exports.update_post = [
             title: `Update ${actor.name}`,
             actor: actor,
             movies: movies,
-            // errors: routeHelper.errorParser(err.message),
           });
         });
     } catch (err) {
