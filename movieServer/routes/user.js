@@ -29,8 +29,6 @@ conn.once('open', () => {
     gfs.collection('userImages');
 });
 
-
-
 const storage = new GridFsStorage({
     url: credentials,
     file: (req, file) => {
@@ -58,6 +56,7 @@ const Actors = require("../models/actors.js");
 const user = require("../models/userModel.js");
 
 const userController = require("../controllers/userController.js");
+const actors = require("../models/actors.js");
 
 router.get("/users", async function(req, res) {
     const userList = await user.find().sort("userName");
@@ -85,17 +84,17 @@ router.get("/users/create", async function(req, res) {
 router.get("/users/update/:id", async function(req, res) {
     let curUser = await user.findById(req.params.id);
     //Need to collect favorite movies
-    let moviesList = [];
-    for (let i = 0; i < curUser.favMovies.length; i++) {
-        var curMovie = await Movies.findById(curUser.favMovies[i]);
-        moviesList.push(curMovie.title);
-    }
+    let moviesList = await Movies.find();
+    // for (let i = 0; i < curUser.favMovies.length; i++) {
+    //     var curMovie = await Movies.findById(curUser.favMovies[i]);
+    //     moviesList.push(curMovie.title);
+    // }
     //Need to collect favorite actors
-    let actorsList = [];
-    for (let i = 0; i < curUser.favActors.length; i++) {
-        var curActor = await Actors.findById(curUser.favActors[i]);
-        actorsList.push(curActor.name);
-    }
+    let actorsList = await Actors.find();
+    // for (let i = 0; i < curUser.favActors.length; i++) {
+    //     var curActor = await Actors.findById(curUser.favActors[i]);
+    //     actorsList.push(curActor.name);
+    // }
     let style = "update";
 
 
@@ -126,24 +125,24 @@ router.get("/users/:id", async function(req, res) {
     }
 
     //Need to collect profile pic if available
-    gfs.files.find().toArray((err, files) => {
-        if (!files || files.length === 0) {
-            console.log("No profile pic for this user");
-        } else {
-            files.map(file => {
-                if (file.contentType === 'jpeg' || file.contentType === 'jpg' || file.contentType === 'png') {
-                    file.isImage = true;
-                } else {
-                    file.isImage = false;
-                }
-            })
-        }
-    });
+    // gfs.files.find().toArray((err, files) => {
+    //     if (!files || files.length === 0) {
+    //         console.log("No profile pic for this user");
+    //     } else {
+    //         files.map(file => {
+    //             if (file.contentType === 'jpeg' || file.contentType === 'jpg' || file.contentType === 'png') {
+    //                 file.isImage = true;
+    //             } else {
+    //                 file.isImage = false;
+    //             }
+    //         })
+    //     }
+    // });
 
 
     res.render("userSingle.ejs", {
         user: curUser,
-        profilePic: files,
+        //profilePic: files,
         moviesList: moviesList,
         actorsList: actorsList,
     });
@@ -174,12 +173,9 @@ router.get('users/images/:filename', (req, res) => {
 
 
 router.get("/users/delete/:id", async function(req, res) {
-    // const window = new Window();
-    // window.confirm = () => {};
-    // if (window.confirm("Are you sure you want to delete this user?")) {
     await user.findByIdAndDelete(req.params.id).exec();
-    res.redirect("DataTypePages/UserData/users");
-    //}
+    res.redirect("/DataTypePages/UserData/users");
+
 });
 
 router.post("/users/update/:id", userController.update_post);

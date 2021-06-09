@@ -54,7 +54,7 @@
             <% } else { %>
                 <h2>Create a new user</h2>
                 <% } %>
-                    <form method="POST" action="/DataTypePages/UserData/users/update/<%-user._id%>" enctype="multipart/form-data">
+                    <form method="POST" action="/DataTypePages/UserData/users/update/<%-user._id%>">
                         <input type="hidden" name="id" value="<%-user._id%>" />
                         <div class="formSection">
                             <label for="userName" class="form-label formDesc">Username:</label>
@@ -67,8 +67,8 @@
                         </div>
 
                         <div class="formSection">
-                            <label for="date" class="formDesc">Date of Account Creation:</label>
-                            <input type="date" class="formInput" name="dateCreated" <% if(style=="update" ) { %> value="
+                            <label for="dateCreated" class="formDesc">Date of Account Creation:</label>
+                            <input type="date" class="formInput" name="dateCreated" <% if(style==="update" ) { %> value="
                             <%- user.dateCreated.toISOString().slice(0,10) %>"
                                 <%}%> required max="
                                     <%-Date.now()%>">
@@ -76,18 +76,22 @@
 
                         <div class="formSection">
                             <label for="favMovies" class="formDesc">Favorite Movies:</label>
-                            <textarea name="favMovies" id="favMovies" class="formInput" columns="30">
-          <!-- <%- movies.join("\n") -%> -->
-          </textarea>
-                            <div id="movieHelp" class="form-text">Enter one movie per line.</div>
+                            <select name="favMovies" multiple>
+                                <%for(let curMovie of movies) { %>
+                                    <option value="<%-curMovie._id%>" <%user.favMovies.includes(curMovie._id) ? "selected" : "" %>><%-curMovie.title%></option>
+
+                                <%}%>
+                            </select>
                         </div>
 
                         <div class="formSection">
                             <label for="favActors" class="formDesc">Favorite Actors:</label>
-                            <textarea name="favActors" id="favActors" class="formInput" columns="30">
-          <%- actors.join("\n") -%>
-          </textarea>
-                            <div id="actorHelp" class="form-text">Enter one actor per line.</div>
+                            <select name="favActors" multiple>
+                                <%for(let curActor of actors) { %>
+                                    <option value="<%-curActor._id%>" <%user.favActors.includes(curActor._id) ? "selected" : "" %>><%-curActor.name%></option>
+
+                                <%}%>
+                            </select>
                         </div>
 
                         <div class="formSection">
@@ -100,8 +104,8 @@
                             <button type="submit" class="btn btn-dark btn-lg center formButton">
           UPDATE USER
         </button>
-                            <% } else { %>
-                                <button type="submit" class="btn btn-dark btn-lg center formButton" href="./users/create">
+                            <% } else { console.log("I am here");%>
+                                <button type="submit" class="btn btn-dark btn-lg center formButton" href="/">
           CREATE USER
         </button>
                                 <%}%>
