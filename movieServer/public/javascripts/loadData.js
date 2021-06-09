@@ -32,6 +32,7 @@ async function loadMoviesandActorsandUsers() {
             born: actor.born,
             height: actor.height,
             twitter: actor.twitter,
+            image: actor.image,
         });
         actorRecord.movies = [];
 
