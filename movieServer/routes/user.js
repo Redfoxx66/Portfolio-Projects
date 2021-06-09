@@ -52,7 +52,7 @@ const Actors = require("../models/actors.js");
 const user = require("../models/userModel.js");
 
 const userController = require("../controllers/userController.js");
-const actors = require("../models/actors.js");
+//const actors = require("../models/actors.js");
 
 router.get("/users", async function (req, res) {
   const userList = await user.find().sort("userName");
@@ -183,70 +183,3 @@ router.get("*", async (req, res) => {
 });
 
 module.exports = router;
-
-//router.get("/graphs", async function(req, res) {
-//     //Need to collect master lists of all movies, actors and users
-//     let moviesList = await Movies.find();
-//     let actorsList = await Actors.find();
-//     let userList = await user.find();
-
-//     //Need to find counts and create labels for each movie and actor
-//     let movieCounts = new Map();
-//     let actorCounts = new Map();
-//     let movieLabels = [];
-//     let actorLabels = [];
-//     for (let i = 0; i < userList.length; i++) {
-//         for (let curMovie of userList[i].favMovies) {
-//             //console.log(userList[i]);
-//             let tester = await Movies.findById(curMovie._id);
-//             if (!movieCounts.has(tester.title)) {
-//                 movieCounts.set(tester.title, { count: 0 });
-//                 movieLabels.push(tester.title);
-//             }
-//             let curCount = movieCounts.get(tester.title).count;
-//             //console.log(movieCounts.get(tester.title));
-//             curCount++;
-//             movieCounts.set(tester.title, { count: curCount });
-//         }
-//     }
-
-//     for (let i = 0; i < userList.length; i++) {
-//         for (let curActor of userList[i].favActors) {
-//             //console.log(userList[i]);
-//             let tester = await Actors.findById(curActor._id);
-//             if (!actorCounts.has(tester.name)) {
-//                 actorCounts.set(tester.name, { count: 0 });
-//                 actorLabels.push(tester.name);
-//             }
-//             let curCount = actorCounts.get(tester.name).count;
-//             curCount++;
-//             actorCounts.set(tester.name, { count: curCount });
-//         }
-//     }
-//     let movieData = [];
-//     let i = 0;
-//     //console.log("length: " + moviesList.length);
-//     for (curMovie of moviesList) {
-//         //console.log(movieCounts.get(curMovie.title));
-//         if (!movieCounts.has(curMovie.title)) {
-//             movieData.push({ x: curMovie.title, y: 0 });
-//         } else {
-//             movieData.push({ x: movieLabels[i], y: movieCounts.get(curMovie.title).count })
-//         }
-//         i++;
-//     };
-
-//     for (test of movieData) {
-//         console.log(test);
-//     }
-
-//     let labels = ['Funny Movie', 'Spirited Away'];
-//     //Need to pass in all data to graph page, this function should do all heavy lifting. EJS page makes no
-//     //calculations, just displays data.
-//     res.render("userGraphs.ejs", {
-//         // movieLabels: movieLabels,
-//         // actorLabels: actorLabels,
-//         movielabels: labels,
-//         movieData: movieData,
-//     });
-// })
