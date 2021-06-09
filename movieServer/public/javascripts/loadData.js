@@ -66,6 +66,10 @@ async function loadMoviesandActorsandUsers() {
       //     movieRecord.rating = ratingEnum.PG13;
       //     break;
 
+      case "U":
+        movieRecord.rating = ratingEnum.U;
+        break;
+
       case "R":
         movieRecord.rating = ratingEnum.R;
         break;
@@ -124,26 +128,26 @@ async function loadMoviesandActorsandUsers() {
   console.log("\nfinished loading movies");
   console.log("finished loading actors");
 
-  for (let user of users) {
-    const curUser = new User({
-      userName: user.userName,
-      passWord: user.passWord,
-      dateCreated: user.dateCreated,
-    });
-    for (let curMovie of user.favMovies) {
-      let movie = await Movie.find().where("title").equals(curMovie).exec();
-      //console.log(movie[0]);
-      curUser.favMovies.push(movie[0]._id);
-    }
-    for (let curActor of user.favActors) {
-      let actor = await Actors.find().where("name").equals(curActor).exec();
-      //console.log(actor);
-      curUser.favActors.push(actor[0]._id);
-    }
+  // for (let user of users) {
+  //   const curUser = new User({
+  //     userName: user.userName,
+  //     passWord: user.passWord,
+  //     dateCreated: user.dateCreated,
+  //   });
+  //   for (let curMovie of user.favMovies) {
+  //     let movie = await Movie.find().where("title").equals(curMovie).exec();
+  //     //console.log(movie[0]);
+  //     curUser.favMovies.push(movie[0]._id);
+  //   }
+  //   for (let curActor of user.favActors) {
+  //     let actor = await Actors.find().where("name").equals(curActor).exec();
+  //     //console.log(actor);
+  //     curUser.favActors.push(actor[0]._id);
+  //   }
 
-    await curUser.save();
-    // console.log(curUser);
-  }
+  //   await curUser.save();
+  //   // console.log(curUser);
+  // }
 
   console.log("finished loading users\nEverything loaded sucssesfully");
 
