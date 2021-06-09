@@ -8,8 +8,21 @@ router.get("/", movieController.movieList);
 
 router.get("/id/:id", movieController.movieById);
 
+router.get("/genres", movieController.genereList);
+
+router.get("/genres/id/:id", movieController.genre);
+
+router.get("/delete/genres/id/:id", movieController.delete_genre);
+
+router.get("/delete/:id", movieController.delete);
+
 router.get("/create", movieController.create);
 
+router.get("/update/:id", movieController.update_get);
+
+router.post("/update/:id", movieController.update_post);
+
+//might do this instead of the "/id/:id" just to give it a more personable/readable url
 // router.get("/:title/:id", movieController.movie);
 
 router.get("*", async (req, res) => {

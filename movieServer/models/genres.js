@@ -6,7 +6,11 @@ let genreSchema = new Schema({
 });
 
 genreSchema.virtual("url").get(function () {
-  return "/genres/id/" + this._id;
+  return "/movies/genres/id/" + this._id;
+});
+
+genreSchema.virtual("delete_url").get(function () {
+  return "/movies/delete/genres/id/" + this._id;
 });
 
 genreSchema.virtual("movies").get(async function () {

@@ -70,6 +70,10 @@ nav.mainlinks {
   padding-inline-start: 0.2em;
 }
 
+main.maincontent {
+  padding-bottom: 1em;
+}
+
 nav.mainlinks ul {
   padding: 0;
   background: var(--thunder-cloud);
@@ -120,6 +124,16 @@ nav.mainlinks li a:active {
   .maincontent {
     max-width: 60em;
   }
+
+  footer p {
+    margin: 0 auto;
+    max-width: 60em;
+  }
+
+  footer p:first-child {
+    max-width: 40em;
+  }
+
   h1 {
     max-width: 30em;
   }

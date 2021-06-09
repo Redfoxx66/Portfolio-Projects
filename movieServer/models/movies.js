@@ -9,23 +9,51 @@ for (let rating in ratingEnum) {
 }
 
 let movieSchema = new Schema({
-  title: { type: String, required: true },
-  director: { type: String, required: true },
+  title: {
+    type: String,
+    required: [true, "A title must be provided"],
+    validate: [
+      function (value) {
+        let match = value.search(/\w/);
+        return match !== -1;
+      },
+      "A title must have at least one character",
+    ],
+  },
+  director: {
+    type: String,
+    required: [true, "A director must be provided"],
+    validate: [
+      function (value) {
+        let match = value.search(/[a-zA-Z]/);
+        return match !== -1;
+      },
+      "A director's name must have at least one letter",
+    ],
+  },
   cast: [{ type: Schema.Types.ObjectId, ref: "Actor" }],
-  releaseDate: { type: Date, required: true },
+  releaseDate: {
+    type: Date,
+    default: Date.now(),
+    required: [true, "Must have a valid release date"],
+  },
   rating: { type: String, require: true, enum: ratings },
   genres: [{ type: Schema.Types.ObjectId, ref: "Genre" }],
   country: { type: String },
   language: { type: String },
-  duration: { type: Number, required: true }, //use as minutes and make virtual to calculate hours and mins
+  duration: {
+    type: Number,
+    required: [true, "A duration must be provided"],
+    min: [1, "Minimum duration is 1 minute"],
+  },
+  img: { type: String },
 });
 
 movieSchema.virtual("url").get(function () {
   return "/movies/id/" + this._id;
 });
 
-//might rename to date, this is to be release date it might have more than just the year it might not
-movieSchema.virtual("date_short").get(function () {
+movieSchema.virtual("date").get(function () {
   let date = this.releaseDate;
   date = date.toISOString().slice(0, 10);
 
@@ -42,29 +70,48 @@ movieSchema.virtual("date_short").get(function () {
   return dateString;
 });
 
+movieSchema.virtual("parsable_date").get(function () {
+  let date = this.releaseDate;
+  return date.toISOString().slice(0, 10);
+});
+
 movieSchema.virtual("runTime").get(function () {
   const initialTime = this.duration;
 
-  // look into making sure it is an even value no matter what, like doing int math in c++
-
   let minutes = initialTime;
-  let hours = minutes / 60;
+  let hours = Math.floor(minutes / 60);
 
   let duration = "";
 
-  if (hours > 1) {
-    minutes = hours * 60 - minutes;
-    duration = `${hours}h ${minutes}min`;
-  } else duration = `${minutes}min`;
+  if (hours >= 1) {
+    minutes = initialTime - hours * 60;
+    if (minutes === 0) {
+      hours > 1 ? (duration = `${hours} hours`) : (duration = `${hours} hour`);
+    } else {
+      duration = `${hours}h ${minutes}min`;
+    }
+  } else duration = `${minutes} minutes`;
 
   return duration;
 });
 
-movieSchema.virtual("year").get(function () {
-  const date = this.releaseDate;
+movieSchema.virtual("parsable_duration").get(function () {
+  const initialTime = this.duration;
 
-  let dateString = date.getFullYear();
-  return dateString;
+  let minutes = initialTime;
+  let hours = Math.floor(minutes / 60);
+  minutes = initialTime - hours * 60;
+
+  let duration = `PT${hours}H${minutes}M`;
+
+  return duration;
 });
+
+// movieSchema.virtual("year").get(function () {
+//   const date = this.releaseDate;
+
+//   let dateString = date.getFullYear();
+//   return dateString;
+// });
 
 module.exports = mongoose.model("Movie", movieSchema);

@@ -1,0 +1,44 @@
+<%- include("shared-header.ejs", { title: genre.title }) %>
+  <link rel="stylesheet" href="/stylesheets/moviestyle.css">
+</head>
+
+<body>
+  <div class="mainheading">
+    <header>
+      <h1>Box Office Database</h1>
+    </header>
+
+    <nav class="mainlinks">
+      <div class="maincontent">
+        <ul>
+          <li>
+            <a title="Home page" href="/index.html">Home</a>
+          </li>
+          <li>
+            <a title="Movie home page" href="/movies/">Movies</a>
+          </li>
+          <li>
+            <a title="User's Data Page" href="/DataTypePages/UserData.html">User data</a>
+          </li>
+          <li>
+            <a title="Actors home page" href="/Actors">Actors</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <main class="maincontent">
+    <header><h2 class="pagetitle"><%- genre.title %></h2></header>
+
+    <p>Movies that are associated with this genre:</p>
+    <ul class="movieDisplay">
+    <% for(let movie of movies) { _%> 
+      <li><a href="<%- movie.url _%>"><%- movie.title _%></a></li>
+    <% } _%> 
+    </ul>
+
+    <a href="<%- genre.delete_url _%>">delete this genre</a>
+  </main>
+
+<%- include("common-footer.ejs") %> 

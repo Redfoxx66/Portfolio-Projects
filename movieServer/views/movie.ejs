@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html lang="en-US">
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>
-        <%- title %>
-    </title>
-
-    <link rel="stylesheet" href="../../stylesheets/mainstlye.css" />
-
-    <link rel="stylesheet" href="../../stylesheets/moviestyle.css" />
+<%- include("shared-header.ejs", {title:title}) %>
+  <link rel="stylesheet" href="/stylesheets/moviestyle.css">
 </head>
 
 <body>
   <div class="mainheading">
     <header>
-        <h1>Box Office Database</h1>
+      <h1>Box Office Database</h1>
     </header>
 
     <nav class="mainlinks">
@@ -26,7 +15,7 @@
             <a title="Home page" href="/index.html">Home</a>
           </li>
           <li>
-            <a title="Movie home page" href="/movies">Movies</a>
+            <a title="Movie home page" href="/movies/">Movies</a>
           </li>
           <li>
             <a title="User's Data Page" href="/DataTypePages/UserData.html">User data</a>
@@ -46,52 +35,65 @@
         <%- title %>
       </h2>
     </header>
-    <!-- <img src="Sprited Away.jpg" alt="Poster for the movie Spirited Away with the main character looking towards the veiwer" class="movieimg" /> -->
 
-    <% console.log(cast) %> 
+    <% if(img !== undefined && img !== "") { %> 
+    <img src="<%- img %> " alt="Poster for the movie <%- title %>" class="movieimg" />
+    <% } else { _%>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="Blank image that say that there is no image available" class="movieimg">
+    <% } _%>  
+
+    <% //console.log(cast) %> 
     <article>
-      <p>Director:
-        <%- director %>
-      </p>
+      <p>Director: <%- director _%></p>
 
-      <p>Cast:</p>
-        <table>
+      <p style="margin: 0;">Cast:</p>
+      <ul class="castList">
+      <% for(let actor of cast) { _%> 
+        <li class="castMember"><a href="<%- actor.url %> "><%- actor.name %> </a></li>
+      <% } _%> 
+      </ul>
+      
+        <!-- <table>
             <thead>
-                <th>Actor/Actress</th>
+                <th>Actor/Actress</th> -->
                 <!-- <th>Character</th> -->
-            </thead>
+            <!-- </thead>
 
             <tbody>
-              <% for(let actor of cast) { %> 
+              <%// for(let actor of cast) { %> 
                 <tr>
-                    <td><a href="<%- actor.url %> "><%- actor.name %> </a></td>
+                    <td><a href="<%- //actor.url %> "><%- //actor.name %> </a></td> -->
                     <!-- <td>Chihiro Ogino / Sen</td> -->
-                </tr>
-              <% } _%> 
+                <!-- </tr>
+              <%// } _%> 
 
             </tbody>
-        </table>
+        </table> -->
 
-        <p>Release Date: <time datetime="<%- releaseDate %>"><%- year %></time></p>
-        <p>Motion Picture Rating:
-          <%- rating %>
-        </p>
+        <p>Release Date: <time datetime="<%- parsable_date _%>"><%- date _%></time></p>
+        <p class="rating">Motion Picture Rating: <%- rating _%></p>
         <% if(genres.length > 0 ) { %> 
         <div class="inlinelist">
           <p>Genres:</p>
           <ul>
           <% for(let genre of genres) { _%> 
-            <!-- <li><a href="<%- genre.url %> "><%- genre.title %></a></li> -->
-            <li><a href="#"><%- genre %></a></li>
+            <li><a href="<%- genre.url %> "><%- genre.title %></a></li>
+            <!-- <li><a href="#"><%- genre %></a></li> -->
             <% } %> 
           </ul>
         </div>
         <% } %> 
         <p>Country: <%- country %></p>
         <p>Language: <%- language %></p>
-        <!-- write virtual code to do the proper date time given minutes -->
-        <p>Duration: <!-- <time datetime="2h 5m" --><%- `${duration} min` %></time></p>
+        <!-- look into code to portray acurate datetime -->
+        <p>Duration: <time datetime="<%- parsable_duration _%> "><%- runTime _%></time></p>
     </article>
-</main>
+
+    <!-- possibly make an 'a' tag that looks like a button rather than having a button that takes you to a link -->
+    <button onclick="location.href='/movies/update/<%- _id %>'" type="button">
+      Update Movie</button>
+      <button onclick="location.href='/movies/delete/<%- _id %>'" type="button">
+        Delete Movie</button>
+  </main>
 
 <%- include("common-footer.ejs") %> 
