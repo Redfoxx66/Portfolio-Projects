@@ -86,12 +86,15 @@ exports.update_post = [
                 !req.body.movies.includes(String(m._id))
               ) {
                 console.log("Movie unselected: ", m.title);
-                console.log(actor._id);
+                console.log("actorID:", actor._id);
+                if(m.actors != undefined){
+                console.log(m.actors);
                 let index = m.actors.indexOf(actor._id);
                 if (index > -1) m.actors.splice(index, 1);
                 if (m.actors.length === 0) movie.cast = [];
                 m.save();
               }
+            }
             }
           }
       actor.name = req.body.name;
