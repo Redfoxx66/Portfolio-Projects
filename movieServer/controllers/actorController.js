@@ -4,7 +4,6 @@ const user = require("../models/userModel.js");
 
 
 //list of things to do still
-// router.get("/delete/:id", actorFunctions.delete);
 // router.get("/create", actorFunctions.create);
 // router.get("/update/:id", actorFunctions.update_get);
 // router.post("/update/:id", actorFunctions.update_post);
@@ -43,7 +42,7 @@ exports.create = async function (req, res, next) {
   try {
     let actor = new Actor({});
     let movies = await Movie.find().select("title").sort("title").exec();
-  
+
     res.render("actorForm.ejs", {
       title: "Create Actor",
       actor: actor,
@@ -77,24 +76,52 @@ exports.update_post = [
       actor = new Actor({
           _id: req.body.id,
         });
-                
       console.log("req.body");
       console.log(req.body);
 
+            
+      //go to each actor and link up their movies if the movie hasn't been added before
+      let movies = await Movie.find().where("_id").eq(req.body.movies).exec();
+      // console.log("Found actor objects to link: ", actors);
+      for (let m of movies) {
+        if (!m.cast.includes(actor._id)) {
+          // console.log(`Movie not present for ${actor.name} so adding this movie`);
+          m.cast.push(actor._id);
 
-      
+          await m.save();
+        }
+      }
 
+           //if updating a movie and unselecting a previously linked actor, unlink on actor end
+           if (actor.movies.length > 0) {
+            let oldMovies = await Movie.find().where("_id").eq(actor.movies).exec();
+            console.log("Movies selcted", req.body.movies);
+            for (let m of oldMovies) {
+              //repetitive see if can do anything about
+              if (
+                req.body.movies === undefined ||
+                !req.body.movies.includes(String(m._id))
+              ) {
+                console.log("Movie unselected: ", m.title);
+                let index = m.actors.indexOf(actor._id);
+                if (index > -1) m.actors.splice(index, 1);
+                if (m.actors.length === 0) movie.cast = [];
+                m.save();
+              }
+            }
+          }
 
 
 
 
       actor.name = req.body.name;
       actor.born = req.body.born;
+      actor.image = req.body.image;
       actor.height = req.body.height;
       actor.twitter = req.body.twitter;
       actor.movies = req.body.movies !== "" ? req.body.movies : undefined;
 
-      let movies = await Movie.find().select("title").exec();
+      movies = await Movie.find().select("title").exec();
 
       actor.save().then((actor) => {
           res.redirect(actor.url);
