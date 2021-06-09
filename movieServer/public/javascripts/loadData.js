@@ -32,6 +32,7 @@ async function loadMoviesandActorsandUsers() {
       born: actor.born,
       height: actor.height,
       twitter: actor.twitter,
+      image: actor.image,
     });
     actorRecord.movies = [];
 
@@ -60,11 +61,6 @@ async function loadMoviesandActorsandUsers() {
       case "PG":
         movieRecord.rating = ratingEnum.PG;
         break;
-
-      // so if it is either blank or pg 13 of some kind will be set to PG13 automatically
-      //   case "PG 13":
-      //     movieRecord.rating = ratingEnum.PG13;
-      //     break;
 
       case "U":
         movieRecord.rating = ratingEnum.U;
@@ -136,14 +132,15 @@ async function loadMoviesandActorsandUsers() {
       dateCreated: user.dateCreated,
     });
     for (let curMovie of user.favMovies) {
+      // console.log(curMovie);
       let movie = await Movie.findOne().where("title").equals(curMovie).exec();
-      //console.log(movie[0]);
-      curUser.favMovies.push(movie[0]._id);
+      // console.log(movie);
+      curUser.favMovies.push(movie._id);
     }
     for (let curActor of user.favActors) {
       let actor = await Actors.findOne().where("name").equals(curActor).exec();
-      //console.log(actor);
-      curUser.favActors.push(actor[0]._id);
+      // console.log(actor);
+      curUser.favActors.push(actor._id);
     }
 
     await curUser.save();

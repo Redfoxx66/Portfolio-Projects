@@ -4,6 +4,23 @@
 #AEBD38 moss
 #598234 meadow
 */
+body {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.mainheading {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--meadow);
+}
+
+.formHeader{
+    margin: 0 auto;
+    text-align: center;
+    padding-bottom: 0.2em;
+    background: white;
+    max-width: 60em;
+}
 
 img {
   max-width: 100%;
@@ -22,16 +39,26 @@ article ul li {
   font-size: 1.2em;
 }
 
-.mainactorcontent{
-  margin-top: .5rem;
+.mainactorcontent {
+  margin-top: 0.5rem;
 }
 
-h2{
+h2 {
   font-size: x-large;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 p {
   font-size: 1.1em;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.actorlist {
+  list-style-image: url("star.gif");
+}
+
+.movielist {
+  list-style-image: url("clapperboard.gif");
 }
 
 @media (max-width: 300px) {

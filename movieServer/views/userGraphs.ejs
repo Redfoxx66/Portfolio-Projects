@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Insert title of page below -->
+
+    <!--Bootstrap link-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous" />
+
+    <!-- END SHARED -->
+    <title>
+        Popular Movies and Actors
+    </title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../../../../../stylesheets/individualUserStyle.css" />
+    <link rel="stylesheet" href="../../../../../stylesheets/mainstlye.css" />
+</head>
+
+
+
+
+<body>
+    <div class="mainheading">
+        <header>
+            <h1>Box Office Database</h1>
+        </header>
+
+        <nav class="mainlinks">
+            <div class="maincontent">
+                <ul>
+                    <li><a title="Home page" href="../../../index.html">Home</a></li>
+                    <li>
+                        <a title="Movie home page" href="/movies/">Movies</a>
+                    </li>
+                    <li>
+                        <a title="User's Data Page" href="../../UserData.html">User Data</a>
+                    </li>
+                    <li>
+                        <a title="Actors home page" href="/actors">Actors</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="maincontent">
+        <ul>
+            <%for(curlabel of movielabels) { %>
+                <li>
+                    <%- curlabel %>
+                </li>
+                <% } %>
+        </ul>
+    </div>
+    <div class="maincontent">
+        <div>
+            <canvas id="popularMovies"></canvas>
+        </div>
+    </div>
+
+    <footer style="margin-top: 5%">
+        <div>
+            <span style="font-size: 1.5em">Page by JMM</span>
+            <p>
+                © <time datetime="2021-4-26">April 2021</time> <br /> BoxOffice.com
+            </p>
+        </div>
+    </footer>
+
+</body>
+<script>
+    const movieLabels = movieLabels;
+    console.log(labels);
+
+    const createMovieChart = async function() {
+        let popMovieChart = new Chart(movieChart, {
+            type: 'bar',
+            data: {
+                labels: movielabels,
+                datasets: [{
+                    label: 'Number of Times Favorited',
+                    data: [
+                        2,
+                        3
+                    ],
+                }]
+            },
+            options: {}
+        });
+    }
+
+    createMovieChart();
+</script>
+
+
+
+</html>
