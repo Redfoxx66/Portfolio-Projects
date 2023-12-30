@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Welcome</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+
+<body>
+    <h1>Welcome Guest</h1>
+
+    <div class="Absolute-Center">
+        <p>The button below will redirect you to a login/register page. Please login/register with email and password or
+            through a google account. After logging in you will be directed to a new page where you will be given your
+            generated JSON Web Token (JWT).</p>
+    </div>
+
+    <p class="Absolute-Center"><a href="/login"><button class="grey">Login</button></a></p>
+
+</body>
+
+</html>
