@@ -1,0 +1,122 @@
+<h3>Spell Index</h3>
+
+
+<form id="search_spell" action="/spell" method="GET">
+    <label for="search">Search by spell name: </label>
+    <input type="text" name="search_input" id="search_input">
+    <input type="button" value="Search" onclick="searchSpell()"/> <button><a href="/spell">Cancel</a></button>
+</form>
+
+{{! Table displaying all spell info }}
+<table>
+    <thead> 
+        <th>ID</th> 
+        <th>Class</th> 
+        <th>Element</th> 
+		<th>Name</th> 
+		<th>Cost</th> 
+		<th>Damage</th>
+        <th></th>
+    </thead> 
+    <tbody>
+        {{#each spell}} 
+        <tr> 
+            <td>{{this.spell_id}}</td>
+            <td>{{this.class_id}}</td>
+            <td>{{this.element}}</td>
+            <td>{{this.spell_name}}</td>
+            <td>{{this.cost}}</td>
+            <td>{{this.damage}}</td>
+
+            {{! Deletes the corresponding class on click }}
+            <td><button id="delete_button" onclick="deleteSpell({{this.spell_id}})">Delete</button></td>
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table>
+
+<hr>
+
+<h3>Manage Spells</h3>
+
+{{! Form to add a spell }}
+<h4 class="header">Add Spell</h4>
+<form id="add_spell" method="POST" action="/spell"> 
+    <div class="dropdown">
+        <label for="class">Class:</label>
+        <select name="class_id">
+            {{#each class}}
+                <option value='{{class_id}}'>{{class_id}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="dropdown">
+        <label for="element">Element:</label>
+        <select name="element">
+            <option value="Air">Air</option>
+            <option value="Water">Water</option>
+            <option value="Fire">Fire</option>
+            <option value="Earth">Earth</option>
+            <option value="Dark">Dark</option>
+            <option value="Light">Light</option>
+        </select>
+    </div>
+
+    <div class="input">
+        <label for="name">Name: </label>
+        <input type="text" name="spell_name"><br>
+
+        <label for="cost">Cost [10-1000]: </label>
+        <input type="number" name="cost"><br>
+    
+        <label for="Damage">Damage [0-10000]: </label>
+        <input type="number" name="damage"><br>
+    </div>
+    <input type="submit" value="Submit">
+</form>
+
+<hr>
+
+{{! Form to edit a class }}
+<h4 class="header">Edit Spell</h4>
+<form id="edit_spell" method="POST" action="/update_spell"> 
+    <div class="dropdown">
+        <label for="spell_id">Spell ID:</label>
+        <select name="spell_id" id="update_spell_id">
+            {{#each spell}}
+                <option value='{{spell_id}}'>{{spell_id}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="dropdown">
+        <label for="class">Class:</label>
+        <select name="class_id">
+            {{#each class}}
+                <option value='{{class_id}}'>{{class_id}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="dropdown">
+        <label for="element">Element:</label>
+        <select name="element">
+            <option value="Air">Air</option>
+            <option value="Water">Water</option>
+            <option value="Fire">Fire</option>
+            <option value="Earth">Earth</option>
+            <option value="Dark">Dark</option>
+            <option value="Light">Light</option>
+        </select>
+    </div>
+
+    <div class="input">
+        <label for="name">Name: </label>
+        <input type="text" name="spell_name"><br>
+
+        <label for="cost">Cost [10-1000]: </label>
+        <input type="number" name="cost"><br>
+    
+        <label for="Damage">Damage [0-10000]: </label>
+        <input type="number" name="damage"><br>
+    </div>
+    <input type="submit" value="Update">
+</form>

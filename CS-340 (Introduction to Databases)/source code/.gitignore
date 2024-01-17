@@ -1,0 +1,2 @@
+# don't upload node_modules to git
+node_modules

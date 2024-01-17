@@ -1,0 +1,69 @@
+{{! Table displaying all master info }}
+<h3>Master Index</h3>
+<table>
+    <thead> 
+        <th>ID</th> 
+        <th>Name</th>
+        <th>Class</th> 
+		<th>Level</th> 
+		<th>Date Born</th> 
+        <th>Species</th>
+        <th></th>
+    </thead> 
+    <tbody>
+        {{#each master}} 
+        <tr> 
+            <td>{{this.master_id}}</td>
+            <td>{{this.master_name}}</td>
+            <td>{{this.class_id}}</td>
+            <td>{{this.danger_level}}</td>
+            <td>{{this.date_born}}</td>
+            <td>{{this.species}}</td> 
+
+            {{! Deletes the corresponding master on click }}
+            <td><button id="delete_button" onclick="deleteMaster({{this.master_id}})">Delete</button></td>
+        </tr> 
+        {{/each}} 
+    </tbody> 
+</table>
+
+<p>You can view each master's spell roster <a href="/master_spell">here</a>.
+
+<hr>
+
+<h3>Manage Masters</h3>
+
+{{! Form to add a master }}
+<h4 class="header">Add Master</h4>
+<form id="add_master" method="POST" action="/master"> 
+    <div class="dropdown">
+        <label for="class">Class:</label>
+        <select name="class_id">
+            {{#each class}}
+                <option value="{{class_id}}">{{class_id}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+    <div class="input">
+        <label for="name">Name: </label>
+        <input type="text" name="master_name"><br>
+
+        <label for="birthdate">Birthdate: </label>
+        <input type="date" name="date_born"><br>
+    
+        <label for="species">Species: </label>
+        <input type="text" name="species"><br>
+    </div>
+    <div class="dropdown">
+        <label for="danger_level">Level:</label>
+        <select name="danger_level">
+            <option value="Apprentice">Apprentice</option>
+            <option value="Adept">Adept</option>
+            <option value="Expert">Expert</option>
+            <option value="Legendary">Legendary</option>
+            <option value="Zenith">Zenith</option>
+        </select>
+    </div>
+    <input type="submit" value="Submit">
+</form>

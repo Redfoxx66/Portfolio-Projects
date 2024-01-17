@@ -1,0 +1,101 @@
+body {
+    padding: 40px;
+    padding-top: 5px;
+}
+
+a, a:visited {
+    text-decoration: none;
+    color: #489d9c;
+    
+}
+
+a:hover {
+    color: #89edff;
+}
+
+#title {
+    margin-bottom:10px;
+}
+
+.credits {
+    color:rgb(107, 107, 107);
+}
+
+h1 {
+    margin-bottom: 50px;
+}
+
+h4 {
+    margin-bottom: 10px;
+}
+
+table {
+    margin-top: 10px;
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid;
+    border-collapse: collapse;
+    padding: 2px;
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+th {
+    background-color: #cce8dd;
+    padding: 4px;
+    padding-left: 14px;
+    padding-right: 14px;
+    color: black;
+}
+
+.dropdown, .description, label, input, select {
+    margin-top: 4px;
+    margin-bottom: 4px;
+
+}
+
+.search {
+    margin-bottom: 30px;
+}
+
+.table_ms, .table_ss {
+    width: 30%;
+}
+
+#table_id, #table_title, #table_dl {
+    width: 14%;
+}
+
+tr:nth-child(even) {
+    background-color: #f1f7f4;
+}
+
+#multiselect {
+    width: 20%;
+}
+
+hr {
+    color:rgb(243, 243, 243);
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+}
+
+input[type=text] {
+    width: 20%;
+}
+
+#delete_button {
+    border-style: none;
+    background-color: transparent;
+    color:#489d9c;
+    font-size: 16px;
+    font-family: serif;
+}
+
+#delete_button:hover {
+    color:#89edff;
+}
