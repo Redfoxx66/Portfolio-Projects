@@ -406,6 +406,6 @@ If your program does not work with the grading script, and you instead request t
 
 **grade recieved**:
 
-Below is a screenshot showing the grade recieved on the assignment highlited in yellow.
+Below is a screenshot showing the grade recieved on the assignment highlighted in yellow.
 
 ![Image of canvas page highlighting recieved grade to match the points stated in rubric](../Extra%20Files/Smallsh%20Grade%20Received.png)
