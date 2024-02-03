@@ -1,0 +1,99 @@
+<%- include("shared-header.ejs", {title:title}) %>
+  <link rel="stylesheet" href="/stylesheets/moviestyle.css">
+</head>
+
+<body>
+  <div class="mainheading">
+    <header>
+      <h1>Box Office Database</h1>
+    </header>
+
+    <nav class="mainlinks">
+      <div class="maincontent">
+        <ul>
+          <li>
+            <a title="Home page" href="/index.html">Home</a>
+          </li>
+          <li>
+            <a title="Movie home page" href="/movies/">Movies</a>
+          </li>
+          <li>
+            <a title="User's Data Page" href="/DataTypePages/UserData.html">User data</a>
+          </li>
+          <li>
+            <a title="Actors home page" href="/Actors">Actors</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <main class="maincontent">
+    <!-- <header><h2 class="pagetitle">Movie Database</h2></header> -->
+    <header>
+      <h2 class="pagetitle">
+        <%- title %>
+      </h2>
+    </header>
+
+    <% if(img !== undefined && img !== "") { %> 
+    <img src="<%- img %> " alt="Poster for the movie <%- title %>" class="movieimg" />
+    <% } else { _%>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="Blank image that say that there is no image available" class="movieimg">
+    <% } _%>  
+
+    <% //console.log(cast) %> 
+    <article>
+      <p>Director: <%- director _%></p>
+
+      <p style="margin: 0;">Cast:</p>
+      <ul class="castList">
+      <% for(let actor of cast) { _%> 
+        <li class="castMember"><a href="<%- actor.url %> "><%- actor.name %> </a></li>
+      <% } _%> 
+      </ul>
+      
+        <!-- <table>
+            <thead>
+                <th>Actor/Actress</th> -->
+                <!-- <th>Character</th> -->
+            <!-- </thead>
+
+            <tbody>
+              <%// for(let actor of cast) { %> 
+                <tr>
+                    <td><a href="<%- //actor.url %> "><%- //actor.name %> </a></td> -->
+                    <!-- <td>Chihiro Ogino / Sen</td> -->
+                <!-- </tr>
+              <%// } _%> 
+
+            </tbody>
+        </table> -->
+
+        <p>Release Date: <time datetime="<%- parsable_date _%>"><%- date _%></time></p>
+        <p class="rating">Motion Picture Rating: <%- rating _%></p>
+        <% if(genres.length > 0 ) { %> 
+        <div class="inlinelist">
+          <p>Genres:</p>
+          <ul>
+          <% for(let genre of genres) { _%> 
+            <li><a href="<%- genre.url %> "><%- genre.title %></a></li>
+            <!-- <li><a href="#"><%- genre %></a></li> -->
+            <% } %> 
+          </ul>
+        </div>
+        <% } %> 
+        <p>Country: <%- country %></p>
+        <p>Language: <%- language %></p>
+        <!-- look into code to portray acurate datetime -->
+        <p>Duration: <time datetime="<%- parsable_duration _%> "><%- runTime _%></time></p>
+    </article>
+
+    <!-- possibly make an 'a' tag that looks like a button rather than having a button that takes you to a link -->
+    <button onclick="location.href='/movies/update/<%- _id %>'" type="button">
+      Update Movie</button>
+      <button onclick="location.href='/movies/delete/<%- _id %>'" type="button">
+        Delete Movie</button>
+  </main>
+
+<%- include("common-footer.ejs") %> 

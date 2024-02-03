@@ -1,0 +1,148 @@
+/* Color declerations need var(--colorname) to use */
+:root {
+  --thunder-cloud: #505160;
+  --waterfall: #68829e;
+  --moss: #aebd38;
+  --meadow: #598234;
+  --light-background: #f2f6fa;
+}
+
+body {
+  margin: 0;
+  background-color: var(--light-background);
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+h1 {
+  background-color: var(--meadow);
+  color: rgb(228, 255, 110);
+  margin: 0 auto;
+  font-size: 2em;
+  line-height: 1;
+  font-weight: 600;
+  max-width: 20em;
+  padding: 1em 0;
+}
+
+footer {
+  background-color: #aebd38;
+  line-height: 1.5;
+}
+
+footer p:first-child {
+  font-size: 1.5em;
+}
+
+footer p {
+  margin: 0;
+}
+
+nav.mainlinks {
+  background: var(--thunder-cloud);
+  padding: 0.5em 0;
+  line-height: 1.5;
+  position: sticky;
+  top: 0;
+}
+
+.mainheading {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--meadow);
+}
+
+.pagetitle {
+  margin: 0;
+  padding: 0.3em 0;
+  font-size: 1.7em;
+  font-style: italic;
+}
+
+.maincontent {
+  margin: 0 auto;
+  display: block;
+  max-width: 500px;
+  background-color: white;
+}
+
+.maincontent h2,
+.maincontent p {
+  padding-inline-start: 0.2em;
+}
+
+main.maincontent {
+  padding-bottom: 1em;
+}
+
+nav.mainlinks ul {
+  padding: 0;
+  background: var(--thunder-cloud);
+  margin: 0 auto;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+}
+
+nav.mainlinks ul li {
+  margin-right: 0.2em;
+}
+
+nav.mainlinks li a {
+  padding-right: 0.5em;
+  text-decoration: none;
+  color: white;
+  font-size: 1em;
+}
+
+nav.mainlinks li a:hover,
+nav.mainlinks li a:focus {
+  color: var(--meadow);
+}
+
+nav.mainlinks li a:active {
+  color: var(--waterfall);
+}
+
+#homepicture {
+  height: 100%;
+  width: 100%;
+  padding-bottom: 0.3em;
+  object-fit: contain;
+}
+
+@media (min-width: 576px) {
+  .maincontent {
+    max-width: 40em;
+  }
+  footer p {
+    margin: 0 auto;
+    max-width: 40em;
+  }
+
+  footer p:first-child {
+    max-width: 26.667em;
+  }
+}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 992px) {
+  .maincontent {
+    max-width: 60em;
+  }
+
+  footer p {
+    margin: 0 auto;
+    max-width: 60em;
+  }
+
+  footer p:first-child {
+    max-width: 40em;
+  }
+
+  h1 {
+    max-width: 30em;
+  }
+}

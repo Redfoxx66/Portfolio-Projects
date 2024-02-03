@@ -1,0 +1,99 @@
+<%- include("header.ejs", {title: title }) %>
+<link rel="stylesheet" href="/stylesheets/ActorsStyle.css">
+<style>
+  p {font-size: 1.1em;} 
+</style>
+  </head>
+    <body>
+        <div class="mainheading">
+            <header>
+                <h1>Box Office Database</h1>
+            </header>
+
+            <nav class="mainlinks">
+                <div class="maincontent">
+                    <ul>
+                        <li>
+                            <a title="Home page" href="/index.html">Home</a>
+                        </li>
+                        <li>
+                            <a title="Movie home page" href="/movies/">Movies</a>
+                        </li>
+                        <li>
+                            <a title="User's Data Page" href="/DataTypePages/UserData.html">User data</a>
+                        </li>
+                        <li>
+                            <a title="Actors home page" href="/actors">Actors</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+      <header class="formHeader"><h2>Actor Form</h2></header>
+
+      <% if(locals.errors) {   //Check to see if there is an errors variable %>
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            <% errors.forEach(function(error) { %>
+              <li style="color: black;"><%= error %></li>
+            <% }); %>
+          </ul>
+        </div>
+      <% } %>
+        
+        <form class="maincontent" method="POST" action="/actors/update/<%- actor._id %>">
+          <input type="hidden" name="id" value="<%- actor._id %>" >
+        
+          <div class="mb-3">
+            <label for="name" class="form-label">Name <em>(Required)</em></label>
+            <input type="text" class="form-control" name="name" id="name"
+              value="<%- actor.name %>" required>
+          </div>
+        
+          <div class="mb-3">
+            <label for="born" class="form-label">Born<em> (Required)</em></label>
+            <input type="date" class="form-control" name="born" id="born"
+            value="<%- actor.born === undefined ? actor.born : actor.born %>" required>
+          </div>
+  
+          <div class="mb-3">
+            <label for="image" class="form-label">Enter a actor image url (optional)</label>
+            <input type="url" class="form-control" name="image" id="image" value="<%- actor.image %>">
+        </div>
+
+          <div class="mb-3">
+            <label for="height" class="form-label">Height (by feet)</label>
+            <input type="number" class="form-control" name="height" id="height"
+              value="<%- actor.height %>" >
+          </div>
+        
+          <div class="mb-3">
+            <label for="twitter" class="form-label">Twitter account name (input your @ name without the @)</label>
+            <input type="text" class="form-control" name="twitter" id="twitter"
+              value="<%- actor.twitter %>" >
+          </div>
+          
+          <div class="mb-3 ">
+            <label for="movies">Movies - use Control-Click to MultiSelect</label>
+            <select class="form-select" id="movies" name="movies" size="8" multiple>  
+              <% for(let m of movies) { %>
+                <option value="<%- m._id %>" <%- actor.movies.includes(m._id) ? "selected" : "" %>><%- m.title _%></option>
+            <% } %>
+            </select>
+          </div>    
+
+
+          <br>
+          <button class="btn btn-primary my-3" type="submit">Submit</button>
+      </form>
+
+      <footer style="background-color: #aebd38;">
+        <p>Page by JMM <br>
+          © <time datetime="2021-5-26">May 2021</time> <br /> BoxOffice.com
+      </p>
+      </footer>
+    </body>
+  </html>
+
+

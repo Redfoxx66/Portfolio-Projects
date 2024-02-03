@@ -1,0 +1,145 @@
+<%- include("header.ejs", {title:title }) %>
+    <link rel="stylesheet" href="/stylesheets/moviestyle.css">
+    </head>
+
+    <body>
+        <div class="mainheading">
+            <header>
+                <h1>Box Office Database</h1>
+            </header>
+
+            <nav class="mainlinks">
+                <div class="maincontent">
+                    <ul>
+                        <li>
+                            <a title="Home page" href="/index.html">Home</a>
+                        </li>
+                        <li>
+                            <a title="Movie home page" href="/movies/">Movies</a>
+                        </li>
+                        <li>
+                            <a title="User's Data Page" href="/DataTypePages/UserData.html">User data</a>
+                        </li>
+                        <li>
+                            <a title="Actors home page" href="/Actors">Actors</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <header class="formTitle">
+            <h2>Movie Form</h2>
+        </header>
+
+        <% if(locals.errors) {   //Check to see if there is an errors variable %>
+            <div class="maincontent error">
+                <ul class="mb-0">
+                    <% errors.forEach(function(error) { %>
+                        <li>
+                            <%= error %>
+                        </li>
+                        <% }); %>
+                </ul>
+            </div>
+            <% } %>
+
+                <form name="movieForm" class="maincontent" id="movieForm" method="POST" action="/movies/update/<%- movie._id %>">
+                    <input type="hidden" name="id" value="<%- movie._id %>">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Movie title <em>(Required)</em></label>
+                        <input type="text" class="form-control" name="title" id="title" placeholder="title" value="<%- movie.title %>" minlength="1" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="director" class="form-label">Director <em>(Required)</em></label>
+                        <input type="text" class="form-control" name="director" id="director" placeholder="director" value="<%- movie.director %>" required>
+                    </div>
+
+                    <div class="mb-3 ">
+                        <label for="actors">Actors <em>- use Control-Click to MultiSelect</em></label>
+                        <select class="form-select" id="actors" name="actors" size="8" multiple>  
+      <% for(let actor of actorObjs) { %>
+        <option value="<%- actor._id %>" <%- movie.cast.includes(actor._id) ? "selected" : "" %>><%- actor.name _%></option>
+    <% } %>
+    </select>
+                    </div>
+
+                    <div class="mb-3 ">
+                        <label for="genres">Genres</label>
+                        <select class="form-select" id="genres" name="genres" size="8" multiple>  
+      <% for(let genre of genreObjs) { %>
+        <option value="<%- genre._id %>" <%- movie.genres.includes(genre._id) ? "selected" : "" %>><%- genre.title _%></option>
+    <% } %>
+    </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <p><em>If the genres above aren't sufficient more can be added below</em></p>
+                        <label for="extraGenres" class="form-label">New Genres</label>
+                        <textarea class="form-control" name="extraGenres" id="extraGenres" rows="2" aria-describedby="newGenres"></textarea>
+                        <div id="newGenres" class="form-text">Enter one genre per line.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="releaseDate" class="form-label">Release date<em> (Required)</em></label>
+                        <input type="date" class="form-control" name="releaseDate" id="releaseDate" value="<%- movie.releaseDate === undefined ? movie.releaseDate : movie.releaseDate.toISOString().slice(0,10) %>" required>
+                    </div>
+
+                    <div class="mb-3 ">
+                        <label for="rating">Rating <em>(Required)</em></label>
+                        <select class="form-select" id="rating" name="rating" required>  
+      <option value="-select rating-" <%- movie.rating === undefined ? "selected" : "" %>>-select rating-</option>
+      <% for(let r of ratings) { _%>
+      <option value="<%- r %>"<%- movie.rating && movie.rating.includes(r) ? "selected" : "" _%>><%= r _%></option>
+      <% } %>
+    </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="duration" class="form-label">Duration <em>(in minutes) (Required)</em></label>
+                        <input type="number" class="form-control" name="duration" id="duration" placeholder="duration" required min="1" value="<%- movie.duration %>">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="country" class="form-label">Country of origin</label>
+                        <input type="text" class="form-control" name="country" id="country" placeholder="country" value="<%- movie.country %>">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="language" class="form-label">Language</label>
+                        <input type="text" class="form-control" name="language" id="language" placeholder="language of movie" value="<%- movie.language %>">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image Link <em>(optional)</em></label>
+                        <input type="url" class="form-control" name="image" id="image" placeholder="url to image here" value="<%- movie.img %>">
+                    </div>
+
+                    <hr>
+                    <button class="btn btn-primary my-3" type="submit">Submit</button>
+                </form>
+
+                <script>
+                    let form = document.forms[0];
+                    let select = document.getElementById("rating");
+                    form.addEventListener('submit', function(e) {
+                        console.log("Validating...");
+                        console.log(select.value);
+                        if (select.value[0] === "-") {
+                            select.setCustomValidity("Must select a rating");
+                            e.preventDefault();
+                        }
+                    });
+                    select.addEventListener('change', function(e) {
+                        console.log("Updating...");
+                        console.log("New value:", select.value);
+                        if (select.value === "-") {
+                            select.setCustomValidity("Must select a rating");
+                        } else {
+                            select.setCustomValidity("");
+                        }
+                    });
+                </script>
+
+                <%- include("common-footer.ejs") %>

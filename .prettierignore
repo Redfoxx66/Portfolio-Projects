@@ -1,0 +1,3 @@
+# ingnore ejs files
+*.ejs
+bin/

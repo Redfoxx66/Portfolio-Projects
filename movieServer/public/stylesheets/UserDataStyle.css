@@ -1,0 +1,43 @@
+table {
+    border-collapse: collapse;
+    margin: auto;
+    margin-top: 2%;
+    width: 75%;
+}
+
+td,
+th {
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.center {
+    display: block;
+    margin: auto;
+}
+
+h2 {
+    margin-left: 45%;
+    margin-right: 40%;
+}
+
+.formButton {
+    margin-bottom: 2%;
+}
+
+@media (min-width: 800px) {
+    button {
+        margin-left: 45%;
+        margin-top: 2%;
+    }
+}
+
+@media (max-width: 799px) {
+    h2 {
+        margin-left: 35%;
+    }
+    button {
+        margin-left: 35%;
+        margin-top: 2%;
+    }
+}
